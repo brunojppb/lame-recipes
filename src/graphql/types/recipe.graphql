@@ -1,0 +1,13 @@
+type Recipe {
+  id: ID!
+  name: String!
+}
+
+input NewRecipe {
+  name: String!
+}
+
+extend type Query {
+  getRecipe(id: ID!): Recipe!
+  allRecipes: [Recipe]!
+}
