@@ -1,13 +1,41 @@
+import http from 'http';
 import app from './app';
-import { ApolloServer } from 'apollo-server-express';
-import typeDefs from './graphql/typeDefs';
-import resolvers from './graphql/resolvers';
+import { apolloServer } from './apolloServer';
+import { createTerminus } from '@godaddy/terminus';
+import { getConnection } from 'typeorm';
+import { setupDatabaseConn } from './repository';
 
-const port: string = app.get('port');
+// Setup Apollo GraphQL endpoint
+apolloServer.applyMiddleware({ app });
 
-const server = new ApolloServer({ typeDefs, resolvers });
-server.applyMiddleware({ app });
+// cleanup resources on shutdown, like databases or file descriptors
+function onSignal(): Promise<any> {
+  console.log('server is starting to shutdown.');
+  const conn = getConnection();
+  conn.close();
+  return Promise.resolve();
+}
 
-app.listen({ port }, () => {
-  console.log(`🚀 Server running on port ${port}`);
+async function onHealthCheck(): Promise<any> {
+  // checks if the system is healthy, like the db connection is live
+  // resolves, if health, rejects if not
+  return Promise.resolve('UP');
+}
+
+const server = http.createServer(app);
+
+createTerminus(server, {
+  signal: 'SIGINT',
+  healthChecks: { '/healthcheck': onHealthCheck },
+  onSignal
 });
+
+async function startServer(): Promise<void> {
+  await setupDatabaseConn();
+  const port: string = app.get('port');
+  server.listen({ port }, () => {
+    console.log(`🚀 Server running on port ${port}`);
+  });
+}
+
+startServer();

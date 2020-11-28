@@ -9,5 +9,9 @@ input NewRecipe {
 
 extend type Query {
   getRecipe(id: ID!): Recipe!
-  allRecipes: [Recipe]!
+  getAllRecipes: [Recipe]!
+}
+
+type Mutation {
+  createRecipe(name: String): Recipe!
 }

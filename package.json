@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "nodemon --config nodemon.json src/server.ts",
     "dev:debug": "nodemon --config nodemon.json --inspect-brk src/server.ts",
-    "prettier-format": "prettier 'src/**/*.ts' --write"
+    "prettier-format": "prettier 'src/**/*.ts' --write",
+    "typeorm": "node --require ./node_modules/ts-node/register ./node_modules/typeorm/cli.js"
   },
   "author": "Bruno Paulino",
   "license": "MIT",
   "dependencies": {
+    "@godaddy/terminus": "^4.4.1",
     "@graphql-tools/load-files": "^6.2.5",
     "@graphql-tools/merge": "^6.2.5",
     "apollo-server-express": "^2.19.0",
@@ -20,7 +22,9 @@
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "http": "0.0.1-security",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "sqlite3": "^5.0.0",
+    "typeorm": "^0.2.29"
   },
   "devDependencies": {
     "@graphql-tools/graphql-file-loader": "^6.2.6",
