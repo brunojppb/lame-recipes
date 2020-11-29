@@ -8,6 +8,11 @@ function findRecipe(id: number): Promise<Recipe> {
 }
 
 function createRecipe(name: string): Promise<Recipe> {
+  // Since I'm using SQLite here, it does't enforce varchar size
+  // it considers VARCHAR columns same as TEXT and doesn't validate the length
+  if (name.length > 255) {
+    return Promise.reject(new Error('Name too long. must be < 255 characters'));
+  }
   const conn = getConnection();
   const repo = conn.getRepository(Recipe);
   const newRecipe = new Recipe();
