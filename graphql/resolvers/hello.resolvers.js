@@ -1,4 +1,4 @@
-function hello(root: any, args: any, context: any): string {
+function hello(root, args, context) {
   return 'hello there';
 }
 
