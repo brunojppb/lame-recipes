@@ -1,11 +1,24 @@
-import {Provider, defaultTheme, Button} from '@adobe/react-spectrum';
+import 'normalize.css';
+import {Provider, defaultTheme} from '@adobe/react-spectrum';
+import {BrowserRouter as Router, Switch} from "react-router-dom";
+import RedirectAuthUserRoute from "./components/common/RedirectAuthUserRoute";
+import LoginPage from "./components/user/LoginPage";
+import Routes from "./routes";
+import AuthProvider from "./components/auth/AuthProvider";
 
 export default function App() {
   return (
     <Provider theme={defaultTheme}>
-      <Button variant="cta" onPress={() => alert('Hey there!')}>
-        Hello React Spectrum!
-      </Button>
+      <AuthProvider>
+        <Router>
+          <Switch>
+            <RedirectAuthUserRoute path={Routes.login} exact>
+              <LoginPage/>
+            </RedirectAuthUserRoute>
+          </Switch>
+        </Router>
+      </AuthProvider>
     </Provider>
   );
+
 }
