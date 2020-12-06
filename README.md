@@ -8,27 +8,11 @@ A simple app to gather your recipes.
 - [Express](https://expressjs.com/)
 - [GraphQL with Apollo](https://graphql.org/)
 - [React](https://reactjs.org/)
-- [TypeORM (SQLite)](https://typeorm.io/)
+- [Sequelize (with SQLite)](https://sequelize.org/)
 
 ## How to run and generate migrations
 
-You must have `ts-node` installed globally to be able to perform TypeORM operations with ts files. There is a way to execute them targeting `.js` files, but I wan't to run it fully with Typescript, so I still need to figure it out a better way to do it. For now, just install `ts-node` in the global scope.
-
-```shell
-npm install -g ts-node
-```
-
-Now to execute existing migrations, just run:
-
-```shell
-npm run typeorm migration:run
-```
-
-To generate a new migration, just run:
-
-```shell
-npm run typeorm migration:generate -- -n migrationNameHere
-```
+TODO
 
 ## To start things up
 
@@ -36,7 +20,7 @@ npm run typeorm migration:generate -- -n migrationNameHere
 # Install all dependencies
 npm install
 # run any pending migrations
-npm run typeorm migration:run
+TODO
 # Execute dev server
 npm run dev
 ```
