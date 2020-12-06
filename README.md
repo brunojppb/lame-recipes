@@ -41,14 +41,13 @@ I have a simple goal for this project. A webapp where my wife and I can upload o
 ### Milestone 2
 
 - [x] Add models and database migrations structure
-- [ ] Write some unit tests to make sure the business logic is legit
+- [x] Add React app as frontend
+- [x] Serve React app from express in production
 
 ### Milestone 3
 
-- [ ] Add React app as frontend
-- [ ] Serve React app from express
 - [ ] Integrate Cypress for end-to-end tests
 
 ### Milestone 4
 
-- [ ]
+- [ ] TODO
