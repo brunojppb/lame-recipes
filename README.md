@@ -31,7 +31,7 @@ I have a simple goal for this project. A webapp where my wife and I can upload o
 
 ### Milestone 1
 
-- [x] App template from scratch with Typescript
+- [x] App template from scratch
 - [x] Add persistent data storage (Was between Mongo and SQL. ended up sticking with SQLite for now. Believe me, it can handle)
 - [x] Hook up graphQL server with Apollo
 - [x] Add simple structure for resolving GraphQL resolvers (no pun intended)
