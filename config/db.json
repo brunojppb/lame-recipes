@@ -1,0 +1,14 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "recipes.development.sqlite3"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "recipes.test.sqlite3"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "recipes.production.sqlite3"
+  }
+}

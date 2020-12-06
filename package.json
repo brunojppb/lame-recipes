@@ -2,11 +2,12 @@
   "name": "lame-recipes",
   "version": "1.0.0",
   "description": "A lame recipes app like any other, but just in React, Typescript and Express",
-  "main": "index.js",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
     "dev": "NODE_ENV=development nodemon server.js",
     "serve": "NODE_ENV=production node server.js",
-    "migratedb": "sequelize-cli db:migrate",
+    "migratedb": "sequelize-esm db:migrate",
     "prettier-format": "prettier 'src/**/*.js' --write"
   },
   "author": "Bruno Paulino",
@@ -24,16 +25,18 @@
     "http": "0.0.1-security",
     "ncp": "^2.0.0",
     "sequelize": "^6.3.5",
-    "sequelize-cli": "^6.2.0",
+    "sequelize-cli-esm": "^5.0.6",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "@graphql-tools/graphql-file-loader": "^6.2.6",
     "@graphql-tools/load": "^6.2.5",
     "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.2.0",
     "nodemon": "^2.0.6",
-    "prettier": "^2.2.0"
+    "prettier": "^2.2.1"
   }
 }

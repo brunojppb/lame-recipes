@@ -1,16 +1,15 @@
 import http from 'http';
+import terminus from '@godaddy/terminus';
 import app from './app.js';
-import { createTerminus } from '@godaddy/terminus';
-import { apolloServer } from './apolloServer.js';
-import { setupDatabaseConn, teardownDatabaseConn } from './repository/index.js';
+import apolloServer from './apolloServer.js';
+import { setupDatabaseConn, teardownDatabaseConn } from './models/index.js';
 
 // Setup Apollo GraphQL endpoint
 apolloServer.applyMiddleware({ app });
 
 // cleanup resources on shutdown, like databases or file descriptors
-async function onSignal() {
-  console.log('server is shutdown.');
-  await teardownDatabaseConn()
+async function teardown() {
+  await teardownDatabaseConn();
   return Promise.resolve();
 }
 
@@ -22,17 +21,19 @@ async function onHealthCheck() {
 
 const server = http.createServer(app);
 
-createTerminus(server, {
-  signal: 'SIGINT',
+terminus.createTerminus(server, {
+  signals: ['SIGINT', 'SIGTERM'],
   healthChecks: { '/healthcheck': onHealthCheck },
-  onSignal
+  onSignal: teardown,
 });
 
 async function startServer() {
   await setupDatabaseConn();
   const port = app.get('port');
   server.listen({ port }, () => {
-    console.log(`🚀 Server running on port ${port} for env ${process.env.NODE_ENV}`);
+    console.log(
+      `🚀 Server running on port ${port} for env ${process.env.NODE_ENV}`
+    );
   });
 }
 

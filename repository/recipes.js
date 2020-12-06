@@ -1,40 +1,35 @@
-import { Recipe } from '../models/recipe';
+import { Recipe } from '../models/recipe.js';
 
 function findRecipe(id) {
   // TODO: Find recipe by ID
   return {
     id: '12345',
-    name: 'mock'
-  }
+    name: 'mock',
+  };
 }
 
-function createRecipe(name) {
+async function createRecipe(name) {
   // Since I'm using SQLite here, it does't enforce varchar size
   // it considers VARCHAR columns same as TEXT and doesn't validate the length
   if (name.length > 255) {
     return Promise.reject(new Error('Name too long. must be < 255 characters'));
   }
-  // TODO: save recipe
-  return {
-    id: '12345',
-    name: 'mock'
-  }
+  return Recipe.create({ name });
 }
 
-function getAllRecipes() {
-  // TODO: list all recipes
-  return [
+async function getAllRecipes() {
+  return Promise.resolve([
     {
       id: '12345',
-      name: 'mock'
-    }
-  ]
+      name: 'mock',
+    },
+  ]);
 }
 
 const RecipesRepo = {
   findRecipe,
   createRecipe,
-  getAllRecipes
+  getAllRecipes,
 };
 
 export default RecipesRepo;

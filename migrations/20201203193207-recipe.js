@@ -1,11 +1,8 @@
-'use strict';
-
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
-    const transaction = await queryInterface.sequelize.transaction()
+  async up(queryInterface, Sequelize) {
+    const transaction = await queryInterface.sequelize.transaction();
     try {
-      console.log('Creating "recipes" table)')
+      console.log('Creating "recipes" table)');
       await queryInterface.createTable(
         'recipes',
         {
@@ -21,38 +18,37 @@ module.exports = {
           updated_at: {
             type: Sequelize.DataTypes.DATE,
             allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW
+            defaultValue: Sequelize.DataTypes.NOW,
           },
           deleted_at: {
             type: Sequelize.DataTypes.DATE,
             allowNull: true,
-            defaultValue: Sequelize.DataTypes.NOW
+            defaultValue: Sequelize.DataTypes.NOW,
           },
         },
         {
           transaction,
         }
-      )
+      );
 
-      await transaction.commit()
+      await transaction.commit();
     } catch (error) {
-      console.error('Could not create "recipe" table:', error)
-      await transaction.rollback()
-      throw error
+      console.error('Could not create "recipe" table:', error);
+      await transaction.rollback();
+      throw error;
     }
-
   },
 
-  down: async (queryInterface, Sequelize) => {
-    const transaction = await queryInterface.sequelize.transaction()
+  async down(queryInterface, Sequelize) {
+    const transaction = await queryInterface.sequelize.transaction();
     try {
-      console.log('dropping "recipes" table')
-      await queryInterface.dropTable('recipes', { transaction })
-      await transaction.commit()
+      console.log('dropping "recipes" table');
+      await queryInterface.dropTable('recipes', { transaction });
+      await transaction.commit();
     } catch (error) {
-      console.error('Could not drop "recipes" table', error)
-      await transaction.rollback()
-      throw error
+      console.error('Could not drop "recipes" table', error);
+      await transaction.rollback();
+      throw error;
     }
-  }
+  },
 };

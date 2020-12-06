@@ -1,15 +1,7 @@
-// ./graphql/resolvers/index.js/ts
-import path from 'path';
 import { mergeResolvers } from '@graphql-tools/merge';
-import { loadFilesSync } from '@graphql-tools/load-files';
 
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import recipeResolvers from './recipes.resolvers.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const resolversArray = loadFilesSync(path.join(__dirname, './**/*.resolvers.*'));
-const resolvers = mergeResolvers(resolversArray);
+const resolvers = mergeResolvers([recipeResolvers]);
 
 export default resolvers;
