@@ -9,11 +9,6 @@ function findRecipe(id) {
 }
 
 async function createRecipe(name) {
-  // Since I'm using SQLite here, it does't enforce varchar size
-  // it considers VARCHAR columns same as TEXT and doesn't validate the length
-  if (name.length > 255) {
-    return Promise.reject(new Error('Name too long. must be < 255 characters'));
-  }
   return Recipe.create({ name });
 }
 

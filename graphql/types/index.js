@@ -1,4 +1,5 @@
 const { gql } = require('apollo-server-express');
+const Recipe = require('./recipe');
 
 const Root = gql`
   schema {
@@ -10,4 +11,6 @@ const Root = gql`
   type Mutation
 `;
 
-module.exports = Root;
+const typeDefs = [Root, Recipe];
+
+module.exports = typeDefs;

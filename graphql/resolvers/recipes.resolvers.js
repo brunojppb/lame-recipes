@@ -1,21 +1,18 @@
 const { RecipesRepo } = require('../../repository/recipes.js');
 
 /** Queries */
-const getRecipe = async (root, { id }, ctx) => {
-  console.log('getting Recipe');
+async function getRecipe(root, { id }, ctx) {
   return RecipesRepo.findRecipe(id);
-};
+}
 
-const getAllRecipes = async (root, args, ctx) => {
-  console.log('get all recipes');
+async function getAllRecipes(root, args, ctx) {
   return RecipesRepo.getAllRecipes();
-};
+}
 
 /** Mutations */
-const createRecipe = async (root, { name }, ctx) => {
-  console.log('creating recipe');
+async function createRecipe(root, { name }, ctx) {
   return RecipesRepo.createRecipe(name);
-};
+}
 
 const resolvers = {
   Query: {

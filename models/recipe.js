@@ -10,6 +10,9 @@ const Recipe = sequelize.define('recipes', {
   name: {
     type: Sequelize.DataTypes.STRING,
     allowNull: false,
+    validate: {
+      len: [2, 255],
+    },
   },
   timestamps: true,
 });
