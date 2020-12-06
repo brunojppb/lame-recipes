@@ -1,11 +1,7 @@
 const Recipe = require('../models/recipe.js');
 
 function findRecipe(id) {
-  // TODO: Find recipe by ID
-  return {
-    id: '12345',
-    name: 'mock',
-  };
+  return Recipe.findByPk(id);
 }
 
 async function createRecipe(name) {
@@ -13,12 +9,7 @@ async function createRecipe(name) {
 }
 
 async function getAllRecipes() {
-  return Promise.resolve([
-    {
-      id: '12345',
-      name: 'mock',
-    },
-  ]);
+  return Recipe.findAll({});
 }
 
 const RecipesRepo = {
