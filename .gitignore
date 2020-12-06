@@ -34,11 +34,33 @@ node_modules
 .DS_Store
 Thumbs.db
 
-# Ignore built ts files
-dist/**/*
-
 # ignore yarn.lock
 yarn.lock
 
 #sqlite databse
 *.sqlite3
+
+# #################
+# React Frontend
+# #################
+
+# dependencies
+/frontend/.pnp
+.pnp.js
+/frontend/.eslintcache
+
+# testing
+/frontend/coverage
+
+# production
+/frontend/build
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

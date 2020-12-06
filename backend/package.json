@@ -4,7 +4,7 @@
   "description": "A lame recipes app like any other, but just in React, Typescript and Express",
   "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon server.js",
+    "dev": "nodemon server.js",
     "serve": "NODE_ENV=production node server.js",
     "migratedb": "sequelize-cli db:migrate",
     "prettier-format": "prettier 'src/**/*.js' --write"
@@ -35,5 +35,6 @@
     "eslint-plugin-prettier": "^3.2.0",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -9,11 +9,12 @@ const rootPath = projectRootPath;
 const app = express();
 
 // Express configuration
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 5000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
+// on Production, we serve the build result from our React frontend
+app.use(express.static(join(__dirname, '../frontend/build')));
 
 module.exports = {
   app,
