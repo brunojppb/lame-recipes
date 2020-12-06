@@ -10,9 +10,11 @@ A simple app to gather your recipes.
 - [React](https://reactjs.org/)
 - [Sequelize (with SQLite)](https://sequelize.org/)
 
-## How to run and generate migrations
+## How generate migrations
 
-TODO
+```shell
+npx sequelize-cli migration:generate --name migration-name-here
+```
 
 ## To start things up
 
@@ -20,7 +22,7 @@ TODO
 # Install all dependencies
 npm install
 # run any pending migrations
-TODO
+npm run migratedb
 # Execute dev server
 npm run dev
 ```
@@ -38,14 +40,15 @@ I have a simple goal for this project. A webapp where my wife and I can upload o
 
 ### Milestone 2
 
-- [ ] Add React app as frontend
-- [ ] Serve React app from express
+- [x] Add models and database migrations structure
+- [ ] Write some unit tests to make sure the business logic is legit
 
 ### Milestone 3
 
-- [ ] Add final models and migrations
-- [ ] Write some tests to make sure the business logic is legit
+- [ ] Add React app as frontend
+- [ ] Serve React app from express
+- [ ] Integrate Cypress for end-to-end tests
 
 ### Milestone 4
 
-- TODO
+- [ ]

@@ -1,10 +1,7 @@
 const { Sequelize } = require('sequelize');
-const { rootPath } = require('../app');
+const dbConfig = require('../config/db');
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: `${rootPath}/recipes.${process.env.NODE_ENV}.sqlite3`,
-});
+const sequelize = new Sequelize(dbConfig);
 
 async function setupDatabaseConn() {
   await sequelize.authenticate();

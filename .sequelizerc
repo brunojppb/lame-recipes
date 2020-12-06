@@ -3,5 +3,5 @@ const path = require('path');
 // Docs:
 // https://sequelize.org/master/manual/migrations.html#the--code--sequelizerc--code--file
 module.exports = {
-    'config': path.resolve('./config', 'db.json'),
+    'config': path.resolve('./config', 'db.js'),
 };
