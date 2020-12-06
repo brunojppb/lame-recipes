@@ -1,5 +1,9 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+const { resolve } = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const projectRootPath = resolve(__dirname);
+const rootPath = projectRootPath;
 
 // Create Express server
 const app = express();
@@ -11,4 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-export default app;
+module.exports = {
+  app,
+  rootPath,
+};

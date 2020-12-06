@@ -1,8 +1,11 @@
-import http from 'http';
-import terminus from '@godaddy/terminus';
-import app from './app.js';
-import apolloServer from './apolloServer.js';
-import { setupDatabaseConn, teardownDatabaseConn } from './models/index.js';
+const http = require('http');
+const { createTerminus } = require('@godaddy/terminus');
+const { app } = require('./app.js');
+const { apolloServer } = require('./apolloServer.js');
+const {
+  setupDatabaseConn,
+  teardownDatabaseConn,
+} = require('./models/index.js');
 
 // Setup Apollo GraphQL endpoint
 apolloServer.applyMiddleware({ app });
@@ -21,7 +24,7 @@ async function onHealthCheck() {
 
 const server = http.createServer(app);
 
-terminus.createTerminus(server, {
+createTerminus(server, {
   signals: ['SIGINT', 'SIGTERM'],
   healthChecks: { '/healthcheck': onHealthCheck },
   onSignal: teardown,

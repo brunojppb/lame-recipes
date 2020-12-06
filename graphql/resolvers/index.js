@@ -1,7 +1,6 @@
-import { mergeResolvers } from '@graphql-tools/merge';
-
-import recipeResolvers from './recipes.resolvers.js';
+const { mergeResolvers } = require('@graphql-tools/merge');
+const recipeResolvers = require('./recipes.resolvers');
 
 const resolvers = mergeResolvers([recipeResolvers]);
 
-export default resolvers;
+module.exports = resolvers;

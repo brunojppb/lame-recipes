@@ -1,21 +1,23 @@
-import RecipesRepo from '../../repository/recipes.js';
+const { RecipesRepo } = require('../../repository/recipes.js');
 
 /** Queries */
-async function getRecipe(root, { id }, ctx) {
+const getRecipe = async (root, { id }, ctx) => {
+  console.log('getting Recipe');
   return RecipesRepo.findRecipe(id);
-}
+};
 
-async function getAllRecipes(root, args, ctx) {
+const getAllRecipes = async (root, args, ctx) => {
   console.log('get all recipes');
   return RecipesRepo.getAllRecipes();
-}
+};
 
 /** Mutations */
-async function createRecipe(root, { name }, ctx) {
+const createRecipe = async (root, { name }, ctx) => {
+  console.log('creating recipe');
   return RecipesRepo.createRecipe(name);
-}
+};
 
-export default {
+const resolvers = {
   Query: {
     getRecipe,
     getAllRecipes,
@@ -24,3 +26,5 @@ export default {
     createRecipe,
   },
 };
+
+module.exports = resolvers;

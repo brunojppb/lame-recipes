@@ -1,7 +1,7 @@
-import Sequelize from 'sequelize';
-import { sequelize } from './index.js';
+const Sequelize = require('sequelize');
+const { sequelize } = require('./index.js');
 
-export const Recipe = sequelize.define('recipes', {
+const Recipe = sequelize.define('recipes', {
   id: {
     primaryKey: true,
     type: Sequelize.DataTypes.UUID,
@@ -11,4 +11,7 @@ export const Recipe = sequelize.define('recipes', {
     type: Sequelize.DataTypes.STRING,
     allowNull: false,
   },
+  timestamps: true,
 });
+
+module.exports = Recipe;

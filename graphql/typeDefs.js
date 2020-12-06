@@ -1,4 +1,6 @@
-import Root from './types/root.js';
-import Recipe from './types/recipe.js';
+const Root = require('./types/root.js');
+const Recipe = require('./types/recipe.js');
 
-export default [Root, Recipe];
+const typeDefs = [Root, Recipe];
+
+module.exports = typeDefs;

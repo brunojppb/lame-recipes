@@ -15,14 +15,14 @@ module.exports = {
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
           },
-          updated_at: {
+          createdAt: {
             type: Sequelize.DataTypes.DATE,
             allowNull: false,
             defaultValue: Sequelize.DataTypes.NOW,
           },
-          deleted_at: {
+          updatedAt: {
             type: Sequelize.DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
             defaultValue: Sequelize.DataTypes.NOW,
           },
         },

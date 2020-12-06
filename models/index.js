@@ -1,17 +1,21 @@
-import { dirname } from 'path';
-import { Sequelize } from 'sequelize';
+const { Sequelize } = require('sequelize');
+const { rootPath } = require('../app');
 
-const rootPath = dirname('~/');
-
-export const sequelize = new Sequelize({
+const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: `${rootPath}/recipes.${process.env.NODE_ENV}.sqlite3`,
 });
 
-export async function setupDatabaseConn() {
+async function setupDatabaseConn() {
   await sequelize.authenticate();
 }
 
-export async function teardownDatabaseConn() {
+async function teardownDatabaseConn() {
   await sequelize.close();
 }
+
+module.exports = {
+  sequelize,
+  setupDatabaseConn,
+  teardownDatabaseConn,
+};

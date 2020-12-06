@@ -1,4 +1,4 @@
-import { Recipe } from '../models/recipe.js';
+const Recipe = require('../models/recipe.js');
 
 function findRecipe(id) {
   // TODO: Find recipe by ID
@@ -32,4 +32,6 @@ const RecipesRepo = {
   getAllRecipes,
 };
 
-export default RecipesRepo;
+module.exports = {
+  RecipesRepo,
+};

@@ -1,7 +1,9 @@
-import { ApolloServer } from 'apollo-server-express';
-import typeDefs from './graphql/typeDefs.js';
-import resolvers from './graphql/resolvers/index.js';
+const { ApolloServer } = require('apollo-server-express');
+const typeDefs = require('./graphql/typeDefs');
+const resolvers = require('./graphql/resolvers');
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
-export default apolloServer;
+module.exports = {
+  apolloServer,
+};

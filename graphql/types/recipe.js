@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+const { gql } = require('apollo-server-express');
 
 const Recipe = gql`
   type Recipe {
@@ -20,4 +20,4 @@ const Recipe = gql`
   }
 `;
 
-export default Recipe;
+module.exports = Recipe;
