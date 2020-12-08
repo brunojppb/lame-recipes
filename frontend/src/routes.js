@@ -1,5 +1,6 @@
 const Routes = {
-  login: '/app',
+  dashboard: '/app',
+  login: '/app/login',
   signup: '/app/signup',
   recipes: '/app/recipes',
   newRecipe: '/app/recipes/new',

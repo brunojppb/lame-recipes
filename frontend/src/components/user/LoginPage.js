@@ -4,7 +4,7 @@ import {useForm} from 'react-hook-form'
 
 import CenterLayout from "../common/CenterLayout";
 import Routes from "../../routes";
-import Lock from "../icons/lock";
+import LockIcon from "../icons/LockIcon";
 
 export default function LoginPage() {
 
@@ -22,7 +22,7 @@ export default function LoginPage() {
             Lame Recipes
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-indigo-500">
+            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-gray-500">
               New around here? Create your account
             </RouterLink>
           </p>
@@ -55,9 +55,9 @@ export default function LoginPage() {
           </div>
 
           <button type="submit"
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <Lock/>
+                <LockIcon/>
               </span>
             Sign in
           </button>

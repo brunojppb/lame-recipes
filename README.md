@@ -4,7 +4,7 @@ A simple app to gather your recipes.
 
 ## Tech stack
 
-- [Typescript](https://www.typescriptlang.org/)
+- JavaScript
 - [Express](https://expressjs.com/)
 - [GraphQL with Apollo](https://graphql.org/)
 - [React](https://reactjs.org/)
