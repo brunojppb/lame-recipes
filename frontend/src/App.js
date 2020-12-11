@@ -16,6 +16,9 @@ export default function App() {
           <Route path="/" exact>
             <Redirect to={Routes.login} />
           </Route>
+          <RedirectAuthUserRoute path={Routes.root} exact>
+            <LoginPage/>
+          </RedirectAuthUserRoute>
           <RedirectAuthUserRoute path={Routes.login} exact>
             <LoginPage/>
           </RedirectAuthUserRoute>

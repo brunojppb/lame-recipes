@@ -27,7 +27,7 @@ export default function SideMenu() {
           </SideMenuItem>
         </div>
 
-        <div className="flex p-3 text-white bg-red-500 rounded cursor-pointer text-center text-sm">
+        <div className="flex p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm">
           <button className="rounded inline-flex items-center">
             <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                  fill="currentColor">
