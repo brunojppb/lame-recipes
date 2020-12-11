@@ -5,7 +5,7 @@ export default function AppLayout({children}) {
 
   return (
     <>
-      <main className="flex w-full h-screen">
+      <div className="flex w-full h-screen">
         <SideMenu/>
         <section className="w-full p-4 overflow-y-auto">
           <div className="w-full h-full border-dashed p-4 text-md">
@@ -13,7 +13,7 @@ export default function AppLayout({children}) {
           </div>
         </section>
 
-      </main>
+      </div>
     </>
   )
 
