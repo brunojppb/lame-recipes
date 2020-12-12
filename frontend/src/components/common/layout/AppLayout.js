@@ -8,7 +8,7 @@ export default function AppLayout({children}) {
       <div className="flex w-full h-screen">
         <SideMenu/>
         <section className="w-full p-4 overflow-y-auto">
-          <div className="w-full h-full border-dashed p-4 text-md">
+          <div className="w-full border-dashed p-4 text-md">
             {children}
           </div>
         </section>
