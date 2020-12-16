@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function RecipeItem() {
+export default function RecipeItem({id, name}) {
 
   return(
     <div className="col-span-4 sm:col-span-4 md:col-span-2 lg:col-span-2 xl:col-span-1 flex flex-col items-center relative">
@@ -11,7 +12,7 @@ export default function RecipeItem() {
           alt="recipe"
         />
         <div className="py-3 px-3">
-          <span className="font-bold text-gray-800 text-lg">Home-made Pizza</span>
+          <span className="font-bold text-gray-800 text-lg">{name}</span>
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-600 font-light">
               <div>
@@ -30,4 +31,9 @@ export default function RecipeItem() {
     </div>
   )
 
+}
+
+RecipeItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 }

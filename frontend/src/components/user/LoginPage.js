@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useHistory} from 'react-router-dom';
 import {useForm} from 'react-hook-form'
 
 import CenterLayout from "../common/CenterLayout";
@@ -9,9 +9,11 @@ import LockIcon from "../icons/LockIcon";
 export default function LoginPage() {
 
   const {register, handleSubmit} = useForm()
+  const history = useHistory()
 
   const onSubmit = (data) => {
     console.log('this is the data:', data);
+    history.push(Routes.recipes)
   }
 
   return(
