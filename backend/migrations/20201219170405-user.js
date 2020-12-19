@@ -2,20 +2,28 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      // Foreign key constraint enforcement for SQLite
-      // See: https://www.sqlite.org/pragma.html
-      await queryInterface.sequelize.query('PRAGMA foreign_keys = ON;');
-
-      console.log('Creating "recipes" table)');
+      console.log('Creating "users" table)');
       await queryInterface.createTable(
-        'recipes',
+        'users',
         {
           id: {
             primaryKey: true,
             type: Sequelize.DataTypes.UUID,
             defaultValue: Sequelize.DataTypes.UUIDV4,
           },
+          email: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+          },
           name: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+          },
+          hashedPassword: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+          },
+          salt: {
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
           },
@@ -35,9 +43,14 @@ module.exports = {
         }
       );
 
+      await queryInterface.addIndex('users', ['email'], {
+        unique: true,
+        transaction,
+      });
+
       await transaction.commit();
     } catch (error) {
-      console.error('Could not create "recipe" table:', error);
+      console.error('Could not create "users" table:', error);
       await transaction.rollback();
       throw error;
     }
@@ -46,11 +59,11 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
-      console.log('dropping "recipes" table');
-      await queryInterface.dropTable('recipes', { transaction });
+      console.log('dropping "users" table');
+      await queryInterface.dropTable('users', { transaction });
       await transaction.commit();
     } catch (error) {
-      console.error('Could not drop "recipes" table', error);
+      console.error('Could not drop "users" table', error);
       await transaction.rollback();
       throw error;
     }
