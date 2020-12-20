@@ -52,8 +52,8 @@ export default function LoginPage() {
             Lame Recipes
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-gray-500">
-              New around here? Create your account
+            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-gray-400 dark:text-gray-100">
+              New around here? Create your account.
             </RouterLink>
           </p>
         </div>
@@ -68,7 +68,7 @@ export default function LoginPage() {
                      autoComplete="email"
                      ref={register}
                      required
-                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                      placeholder="Email address"/>
             </div>
             <div>
@@ -79,7 +79,7 @@ export default function LoginPage() {
                      type="password"
                      autoComplete="current-password"
                      required
-                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md mt-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                      placeholder="Password"/>
             </div>
           </div>
@@ -92,13 +92,13 @@ export default function LoginPage() {
               </span>
             Sign in
           </button>
-          <div className="flex items-center justify-center">
-            <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
+          {/*<div className="flex items-center justify-center">*/}
+          {/*  <div className="text-sm">*/}
+          {/*    <a href="#" className="font-medium text-blue-600 hover:text-indigo-500">*/}
+          {/*      Forgot your password?*/}
+          {/*    </a>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </form>
       </div>
     </CenterLayout>

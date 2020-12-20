@@ -3,6 +3,7 @@ import React, {
   createContext,
   useEffect,
   useContext,
+  useCallback
 } from 'react'
 import {gql, useQuery} from "@apollo/client";
 
@@ -22,6 +23,10 @@ export default function AuthProvider({children}) {
   const [user, setUser] = useState(null)
   const {loading, data} = useQuery(GET_ME)
 
+  const onSignOut = useCallback(() => {
+    setUser(null)
+  }, [])
+
   useEffect(() => {
     if (data && data.user) {
       setUser(data.user)
@@ -32,7 +37,7 @@ export default function AuthProvider({children}) {
   return loading ? (
     'loading...'
   ) : (
-    <AuthContext.Provider value={{user, setUser}}>
+    <AuthContext.Provider value={{user, setUser, onSignOut}}>
       {children}
     </AuthContext.Provider>
   )

@@ -4,6 +4,9 @@ import UserIcon from "../../icons/UserIcon";
 import PlusIcon from "../../icons/PlusIcon";
 import HeartIcon from "../../icons/HeartIcon";
 import Routes from "../../../routes";
+import ExitArrow from "../../icons/ExitArrow";
+import {gql, useMutation} from "@apollo/client";
+import {useAuth} from "../../auth/AuthProvider";
 
 const menus = [
   {
@@ -23,7 +26,27 @@ const menus = [
   }
 ]
 
+const LOGOUT_MUTATION = gql`
+    mutation signOut {
+        signOut
+    }
+`
+
 export default function SideMenu() {
+
+  const [signOut] = useMutation(LOGOUT_MUTATION)
+  const {onSignOut} = useAuth()
+
+  const onLogout = async () => {
+    console.log('signing out')
+    try {
+      await signOut()
+      onSignOut()
+    } catch (e) {
+      console.error("Could not logout", e)
+    }
+  }
+
   return (
     <aside className="w-80 h-screen bg-gray shadow-md w-fulll hidden sm:block">
       <div className="flex flex-col justify-between h-screen p-4 bg-gray-800">
@@ -39,17 +62,10 @@ export default function SideMenu() {
           ))}
         </div>
 
-        <div className="flex p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm">
-          <button className="rounded inline-flex items-center">
-            <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 fill="currentColor">
-              <path fillRule="evenodd"
-                    d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                    clipRule="evenodd"/>
-            </svg>
-            <span className="font-semibold">Logout</span>
-          </button>
-        </div>
+        <button className="rounded inline-flex items-center flex p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm" onClick={onLogout}>
+          <ExitArrow className="w-4 h-4 mr-2"/>
+          <span className="font-semibold">Logout</span>
+        </button>
       </div>
     </aside>
   )

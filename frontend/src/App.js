@@ -7,6 +7,7 @@ import AuthProvider from "./components/auth/AuthProvider";
 import AppContainer from "./components/common/AppContainer";
 import {apolloClient} from "./graphql";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import SignupPage from "./components/user/SignupPage";
 
 export default function App() {
   return (
@@ -25,6 +26,9 @@ export default function App() {
             </RedirectAuthUserRoute>
             <RedirectAuthUserRoute path={Routes.login} exact>
               <LoginPage/>
+            </RedirectAuthUserRoute>
+            <RedirectAuthUserRoute path={Routes.signup} exact>
+              <SignupPage/>
             </RedirectAuthUserRoute>
             <ProtectedRoute path={Routes.dashboard}>
               <AppContainer/>

@@ -1,9 +1,23 @@
 import React from 'react';
+import {useForm} from 'react-hook-form'
 import ImageUploadIcon from "../icons/ImageUploadIcon";
 
-export default function RecipeForm() {
+export default function RecipeForm({name = '', content = '', isSaving = false, onSave}) {
+
+  const {register, handleSubmit} = useForm({
+    defaultValues: {
+      name, content
+    }
+  })
+
+  const onSubmit = (data) => {
+    const {name, content} = data;
+    console.log('saving recipe', data)
+    onSave(name, content)
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="py-5 bg-white">
         <div>
           <label className="block text-sm font-medium text-gray-700">
@@ -33,21 +47,10 @@ export default function RecipeForm() {
 
         <div className="grid grid-cols-x3 gap-6 mt-4">
           <div className="col-span-3 sm:col-span-2">
-            <label htmlFor="company_website" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="recipe-name" className="block text-sm font-medium text-gray-700">
               Recipe Name
             </label>
-            <input type="text" name="company_website" id="company_website"
-                   className="block w-full border py-2 px-3 text-grey-darkest mt-1 rounded-md"
-                   placeholder="Home-made pizza"/>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-x3 gap-6 mt-4">
-          <div className="col-span-3 sm:col-span-2">
-            <label htmlFor="company_website" className="block text-sm font-medium text-gray-700">
-              Recipe Name
-            </label>
-            <input type="text" name="company_website" id="company_website"
+            <input type="text" name="name" id="recipe-name" ref={register}
                    className="block w-full border py-2 px-3 text-grey-darkest mt-1 rounded-md"
                    placeholder="Home-made pizza"/>
           </div>

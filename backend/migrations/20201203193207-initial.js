@@ -65,6 +65,10 @@ module.exports = {
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
           },
+          content: {
+            type: Sequelize.DataTypes.TEXT,
+            allowNull: false,
+          },
           userId: {
             type: Sequelize.DataTypes.UUID,
             allowNull: false,

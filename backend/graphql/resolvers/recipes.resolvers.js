@@ -1,12 +1,12 @@
 const { RecipesRepo } = require('../../repository/recipes.js');
 
 /** Queries */
-async function getRecipe(root, { id }, ctx) {
-  return RecipesRepo.findRecipe(id);
+async function getRecipe(root, { id }, {user}) {
+  return RecipesRepo.findRecipe(id, user.id);
 }
 
-async function getAllRecipes(root, args, ctx) {
-  return RecipesRepo.getAllRecipes();
+async function getAllRecipes(root, args, {user}) {
+  return RecipesRepo.getAllRecipes(user.id);
 }
 
 async function getMyRecipes(root, args, {user}) {
@@ -14,14 +14,15 @@ async function getMyRecipes(root, args, {user}) {
 }
 
 /** Mutations */
-async function createRecipe(root, { name }, ctx) {
-  return RecipesRepo.createRecipe(name);
+async function createRecipe(root, { name, content }, {user}) {
+  return RecipesRepo.createRecipe(name, content, user.id);
 }
 
 const resolvers = {
   Query: {
     getRecipe,
     getAllRecipes,
+    getMyRecipes
   },
   Mutation: {
     createRecipe,

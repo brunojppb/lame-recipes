@@ -32,12 +32,11 @@ async function signIn(root, args, { request }) {
   if (!isPwValid) throw new Error('Invalid Password');
 
   const token = await generateToken();
-  const { id, name } = user;
   const oneYearFromNow = new Date(
     new Date().setFullYear(new Date().getFullYear() + 1)
   );
   const session = await UserSessionRepo.createSession(
-    id,
+    user.id,
     token,
     oneYearFromNow
   );
@@ -49,16 +48,14 @@ async function signIn(root, args, { request }) {
     sameSite: false,
   });
 
-  return {
-    name,
-    email,
-  };
+  return user;
 }
 
 async function signOut(root, args, ctx) {
   const token = ctx.request.cookies[AUTH_HEADER];
   if (token) {
     await UserSessionRepo.deleteSession(token)
+    ctx.request.res.cookie(AUTH_HEADER, token, {maxAge: 0})
   }
   return true;
 }
