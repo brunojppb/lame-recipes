@@ -9,6 +9,8 @@ const generateSalt = promisify(genSalt);
 const generateHash = promisify(hash);
 const randomBytes = promisify(crypto.randomBytes);
 
+const AUTH_HEADER = 'recipe-auth-token';
+
 /**
  * Validate the given password against its salted hash
  * @param {String} password - The plain user password
@@ -66,6 +68,7 @@ async function getUserFromSession(token) {
 }
 
 module.exports = {
+  AUTH_HEADER,
   validatePassword,
   hashPassword,
   generateToken,

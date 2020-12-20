@@ -24,10 +24,15 @@ async function getValidSession(token) {
   });
 }
 
+async function deleteSession(token) {
+  return UserSession.destroy({where: {token}})
+}
+
 const UserSessionRepo = {
   getByToken,
   createSession,
   getValidSession,
+  deleteSession
 };
 
 module.exports = {

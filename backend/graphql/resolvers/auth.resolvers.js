@@ -1,4 +1,4 @@
-const { validatePassword, generateToken, hashPassword } = require('../../auth');
+const { validatePassword, generateToken, hashPassword, AUTH_HEADER } = require('../../auth');
 
 const { UserSessionRepo } = require('../../repository/userSession');
 const { UserRepo } = require('../../repository/user');
@@ -6,7 +6,7 @@ const { UserRepo } = require('../../repository/user');
 /** Queries */
 
 /** Mutations */
-async function signup(root, args) {
+async function signUp(root, args) {
   const { name, email, password, passwordConfirmation } = args.input;
   if (password !== passwordConfirmation) {
     throw new Error("Password and password confirmation don't match");
@@ -22,7 +22,7 @@ async function signup(root, args) {
   return user;
 }
 
-async function signin(root, args, { req }) {
+async function signIn(root, args, { req }) {
   const { email, password } = args.input;
   const user = await UserRepo.getByEmail(email);
   if (!user) throw new Error('Email not found.');
@@ -42,7 +42,7 @@ async function signin(root, args, { req }) {
     oneYearFromNow
   );
 
-  req.res.cookie('recipe-auth-token', session.token, {
+  req.res.cookie(AUTH_HEADER, session.token, {
     maxAge: Math.abs(oneYearFromNow - new Date()),
     httpOnly: false,
     secure: process.env.NODE_ENV === 'production',
@@ -55,10 +55,19 @@ async function signin(root, args, { req }) {
   };
 }
 
+async function signOut(root, args, ctx) {
+  const token = ctx.req.cookies[AUTH_HEADER];
+  if (token) {
+    await UserSessionRepo.deleteSession(token)
+  }
+  return true;
+}
+
 const resolvers = {
   Mutation: {
-    signin,
-    signup,
+    signIn,
+    signUp,
+    signOut
   },
 };
 

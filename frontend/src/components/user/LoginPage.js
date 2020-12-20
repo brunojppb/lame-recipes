@@ -9,8 +9,8 @@ import LockIcon from "../icons/LockIcon";
 import {useAuth} from "../auth/AuthProvider";
 
 const LOGIN_MUTATION = gql`
-    mutation signin($input: SigninInput!) {
-        user: signin(input: $input) {
+    mutation signIn($input: SigninInput!) {
+        user: signIn(input: $input) {
             name
             email
         }
@@ -21,12 +21,12 @@ export default function LoginPage() {
   const history = useHistory()
   const {register, handleSubmit} = useForm()
   const {setUser} = useAuth()
-  const [signin, {loading}] = useMutation(LOGIN_MUTATION)
+  const [signIn, {loading}] = useMutation(LOGIN_MUTATION)
 
   const onSubmit = async (data) => {
     const {email, password} = data;
     try {
-      const {data} = await signin({
+      const {data} = await signIn({
         variables: {
           input: {
             email,
