@@ -60,13 +60,8 @@ I have a simple goal for this project. A webapp where my wife and I can upload o
 - [ ] List client recipes
 - [ ] Search for recipes
 - [ ] Add tags to Recipe model
-- [ ] Add prep time to Recipe model
-- [ ] 
+- [ ] Add prep time to Recipe model 
 
 ### Milestone X
 
 - [ ] Integrate Cypress for end-to-end tests
-
-### Milestone 4
-
-- [ ] TODO
