@@ -7,7 +7,7 @@ const User = gql`
   }
 
   extend type Query {
-    getMe: User!
+    getMe: User! @isAuthenticated
   }
 `;
 

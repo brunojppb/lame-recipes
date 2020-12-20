@@ -16,6 +16,10 @@ const Recipe = sequelize.define(
         len: [2, 255],
       },
     },
+    userId: {
+      type: Sequelize.DataTypes.UUID,
+      allowNull: false,
+    },
   },
   {
     timestamps: true,

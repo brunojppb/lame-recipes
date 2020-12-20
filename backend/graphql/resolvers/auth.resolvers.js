@@ -22,7 +22,7 @@ async function signUp(root, args) {
   return user;
 }
 
-async function signIn(root, args, { req }) {
+async function signIn(root, args, { request }) {
   const { email, password } = args.input;
   const user = await UserRepo.getByEmail(email);
   if (!user) throw new Error('Email not found.');
@@ -42,7 +42,7 @@ async function signIn(root, args, { req }) {
     oneYearFromNow
   );
 
-  req.res.cookie(AUTH_HEADER, session.token, {
+  request.res.cookie(AUTH_HEADER, session.token, {
     maxAge: Math.abs(oneYearFromNow - new Date()),
     httpOnly: false,
     secure: process.env.NODE_ENV === 'production',
@@ -56,7 +56,7 @@ async function signIn(root, args, { req }) {
 }
 
 async function signOut(root, args, ctx) {
-  const token = ctx.req.cookies[AUTH_HEADER];
+  const token = ctx.request.cookies[AUTH_HEADER];
   if (token) {
     await UserSessionRepo.deleteSession(token)
   }

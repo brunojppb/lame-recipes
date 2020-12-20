@@ -9,6 +9,10 @@ async function getAllRecipes(root, args, ctx) {
   return RecipesRepo.getAllRecipes();
 }
 
+async function getMyRecipes(root, args, {user}) {
+  return RecipesRepo.getUserRecipes(user.id)
+}
+
 /** Mutations */
 async function createRecipe(root, { name }, ctx) {
   return RecipesRepo.createRecipe(name);

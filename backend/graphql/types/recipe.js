@@ -11,8 +11,9 @@ const Recipe = gql`
   }
 
   extend type Query {
-    getRecipe(id: ID!): Recipe!
+    getRecipe(id: ID!): Recipe! @isAuthenticated
     getAllRecipes: [Recipe]!
+    getMyRecipes: [Recipe]! @isAuthenticated
   }
 
   extend type Mutation {

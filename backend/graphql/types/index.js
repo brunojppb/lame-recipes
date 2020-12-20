@@ -11,6 +11,8 @@ const Root = gql`
 
   type Query
   type Mutation
+  
+  directive @isAuthenticated on FIELD_DEFINITION | FIELD
 `;
 
 const typeDefs = [Root, Recipe, User, Auth];

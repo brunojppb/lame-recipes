@@ -12,10 +12,15 @@ async function getAllRecipes() {
   return Recipe.findAll({});
 }
 
+async function getUserRecipes(userId) {
+  return Recipe.findAll({where: {userId}})
+}
+
 const RecipesRepo = {
   findRecipe,
   createRecipe,
   getAllRecipes,
+  getUserRecipes
 };
 
 module.exports = {
