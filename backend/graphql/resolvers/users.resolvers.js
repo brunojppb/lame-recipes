@@ -1,8 +1,7 @@
-const { UsersRepo } = require('../../repository/user');
 
 /** Queries */
 async function getMe(root, _, ctx) {
-  return ctx.user;
+  return ctx.req.user;
 }
 
 const resolvers = {

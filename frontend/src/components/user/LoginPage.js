@@ -1,26 +1,54 @@
 import React from 'react';
 import {Link as RouterLink, useHistory} from 'react-router-dom';
 import {useForm} from 'react-hook-form'
+import {gql, useMutation} from "@apollo/client";
 
 import CenterLayout from "../common/CenterLayout";
 import Routes from "../../routes";
 import LockIcon from "../icons/LockIcon";
+import {useAuth} from "../auth/AuthProvider";
+
+const LOGIN_MUTATION = gql`
+    mutation signin($input: SigninInput!) {
+        user: signin(input: $input) {
+            name
+            email
+        }
+    }
+`;
 
 export default function LoginPage() {
-
-  const {register, handleSubmit} = useForm()
   const history = useHistory()
+  const {register, handleSubmit} = useForm()
+  const {setUser} = useAuth()
+  const [signin, {loading}] = useMutation(LOGIN_MUTATION)
 
-  const onSubmit = (data) => {
-    console.log('this is the data:', data);
-    history.push(Routes.recipes)
+  const onSubmit = async (data) => {
+    const {email, password} = data;
+    try {
+      const {data} = await signin({
+        variables: {
+          input: {
+            email,
+            password
+          }
+        }
+      });
+      const {user} = data;
+      if (user) {
+        setUser(user);
+        history.replace(Routes.recipes)
+      }
+    } catch (e) {
+      console.log('could not login', e)
+    }
   }
 
   return(
     <CenterLayout padding="size-10">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-300">
             Lame Recipes
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
@@ -57,7 +85,8 @@ export default function LoginPage() {
           </div>
 
           <button type="submit"
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  disabled={loading}
+                  className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${loading ? 'disabled:bg-gray-200' : ''}`}>
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LockIcon/>
               </span>
