@@ -4,10 +4,12 @@ const Recipe = gql`
   type Recipe {
     id: ID!
     name: String!
+    content: String!
   }
 
-  input NewRecipe {
+  input RecipeInput {
     name: String!
+    content: String!
   }
 
   extend type Query {
@@ -17,7 +19,7 @@ const Recipe = gql`
   }
 
   extend type Mutation {
-    createRecipe(name: String): Recipe! @isAuthenticated
+    createRecipe(input: RecipeInput!): Recipe! @isAuthenticated
   }
 `;
 

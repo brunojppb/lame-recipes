@@ -1,6 +1,7 @@
 import React from 'react';
 import {useForm} from 'react-hook-form'
 import ImageUploadIcon from "../icons/ImageUploadIcon";
+import PropTypes from 'prop-types';
 
 export default function RecipeForm({name = '', content = '', isSaving = false, onSave}) {
 
@@ -57,12 +58,13 @@ export default function RecipeForm({name = '', content = '', isSaving = false, o
         </div>
 
         <div className="mt-4">
-          <label htmlFor="recipe_description" className="block text-sm font-medium text-gray-700">
-            Recipe Description
+          <label htmlFor="recipe-content" className="block text-sm font-medium text-gray-700">
+            Recipe Content
           </label>
           <div className="mt-1">
-              <textarea id="recipe_description" rows="5"
-                        name="description"
+              <textarea id="recipe-content" rows="5"
+                        name="content"
+                        ref={register}
                         className="shadow-sm py-2 px-3 mt-1 block w-full sm:text-sm border rounded-md"
                         placeholder="Here is how you can make this awesome home-made pizza"/>
           </div>
@@ -75,10 +77,18 @@ export default function RecipeForm({name = '', content = '', isSaving = false, o
       </div>
       <div className="text-right">
         <button type="submit"
+                disabled={isSaving}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Save
         </button>
       </div>
     </form>
   )
+}
+
+RecipeForm.propTypes = {
+  name: PropTypes.string,
+  content: PropTypes.string,
+  isSaving: PropTypes.bool.isRequired,
+  onSave: PropTypes.func.isRequired
 }
