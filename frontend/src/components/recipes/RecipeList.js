@@ -1,19 +1,11 @@
 import React from 'react';
 import RecipeItem from "./RecipeItem";
-import {gql, useQuery} from "@apollo/client";
-
-const MY_RECIPES = gql`
-  {
-    recipes: getAllRecipes {
-      id
-      name
-    }
-  }
-`;
+import {useQuery} from "@apollo/client";
+import {QUERY_MY_RECIPES} from "../../graphql/queries";
 
 export default function RecipeList() {
 
-  const {loading, error, data} = useQuery(MY_RECIPES)
+  const {loading, error, data} = useQuery(QUERY_MY_RECIPES)
 
   if (loading) return 'Loading...'
   if (error) return <p>Error: {error}</p>

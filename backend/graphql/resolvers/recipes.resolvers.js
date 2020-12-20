@@ -14,7 +14,8 @@ async function getMyRecipes(root, args, {user}) {
 }
 
 /** Mutations */
-async function createRecipe(root, { name, content }, {user}) {
+async function createRecipe(root, args, {user}) {
+  const { name, content } = args.input;
   return RecipesRepo.createRecipe(name, content, user.id);
 }
 

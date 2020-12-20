@@ -20,7 +20,9 @@ const GET_ME = gql`
 `
 
 export default function AuthProvider({children}) {
-  const [user, setUser] = useState(null)
+  // TODO: Use Apollo cache instead of own user state here
+  // Using cache.writeQuery instead to replace `setUser`
+  const [user, setUser] = useState(undefined)
   const {loading, data} = useQuery(GET_ME)
 
   const onSignOut = useCallback(() => {
@@ -28,15 +30,13 @@ export default function AuthProvider({children}) {
   }, [])
 
   useEffect(() => {
-    if (data && data.user) {
-      setUser(data.user)
-    }
+    setUser((data && data.user) ? data.user : null)
   }, [data])
 
   // TODO: Replace loader with a proper component
-  return loading ? (
-    'loading...'
-  ) : (
+  if (loading || typeof user === 'undefined') return 'Loading...'
+
+  return (
     <AuthContext.Provider value={{user, setUser, onSignOut}}>
       {children}
     </AuthContext.Provider>
