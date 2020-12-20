@@ -1,25 +1,21 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('./index.js');
 
-const Recipe = sequelize.define(
-  'recipes',
+const UserSession = sequelize.define(
+  'userSessions',
   {
     id: {
       primaryKey: true,
       type: Sequelize.DataTypes.UUID,
       defaultValue: Sequelize.DataTypes.UUIDV4,
     },
-    name: {
+    token: {
       type: Sequelize.DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [2, 255],
-      },
     },
-    content: {
-      type: Sequelize.DataTypes.TEXT,
+    expireAt: {
+      type: Sequelize.DataTypes.DATE,
       allowNull: false,
-      default: ''
     },
     userId: {
       type: Sequelize.DataTypes.UUID,
@@ -31,4 +27,4 @@ const Recipe = sequelize.define(
   }
 );
 
-module.exports = Recipe;
+module.exports = UserSession;

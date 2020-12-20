@@ -3,41 +3,69 @@ import SideMenuItem from "./SideMenuItem";
 import UserIcon from "../../icons/UserIcon";
 import PlusIcon from "../../icons/PlusIcon";
 import HeartIcon from "../../icons/HeartIcon";
+import Routes from "../../../routes";
+import ExitArrow from "../../icons/ExitArrow";
+import {gql, useMutation} from "@apollo/client";
+import {useAuth} from "../../auth/AuthProvider";
+
+const menus = [
+  {
+    IconComponent: HeartIcon,
+    label: 'My recipes',
+    to: Routes.recipes
+  },
+  {
+    IconComponent: PlusIcon,
+    label: 'New Recipe',
+    to: Routes.newRecipe
+  },
+  {
+    IconComponent: UserIcon,
+    label: 'Settings',
+    to: Routes.settings
+  }
+]
+
+const LOGOUT_MUTATION = gql`
+    mutation signOut {
+        signOut
+    }
+`
 
 export default function SideMenu() {
+
+  const [signOut] = useMutation(LOGOUT_MUTATION)
+  const {onSignOut} = useAuth()
+
+  const onLogout = async () => {
+    console.log('signing out')
+    try {
+      await signOut()
+      onSignOut()
+    } catch (e) {
+      console.error("Could not logout", e)
+    }
+  }
+
   return (
     <aside className="w-80 h-screen bg-gray shadow-md w-fulll hidden sm:block">
       <div className="flex flex-col justify-between h-screen p-4 bg-gray-800">
         <div className="text-sm">
           <div className="bg-gray-900 text-white p-5 rounded cursor-pointer font-bold">Lame Recipes</div>
-          <SideMenuItem>
-            <HeartIcon className="text-white w-4 h-4"/>
-            <div className="flex justify-between items-center w-full">
-              <span>My Recipes</span>
-              <span className="w-4 h-4 bg-blue-600 rounded-full text-white text-center font-normal text-xs">5</span>
-            </div>
-          </SideMenuItem>
-          <SideMenuItem>
-            <PlusIcon className="text-white w-4 h-4"/>
-            <span>New Recipe</span>
-          </SideMenuItem>
-          <SideMenuItem>
-            <UserIcon className="text-white w-4 h-4"/>
-            <span>Account Settings</span>
-          </SideMenuItem>
+          {menus.map(({IconComponent, label, to}) => (
+            <SideMenuItem to={to} key={to}>
+              <IconComponent className="text-white w-4 h-4"/>
+              <div className="flex justify-between items-center w-full">
+                <span>{label}</span>
+              </div>
+            </SideMenuItem>
+          ))}
         </div>
 
-        <div className="flex p-3 text-white bg-red-500 rounded cursor-pointer text-center text-sm">
-          <button className="rounded inline-flex items-center">
-            <svg className="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 fill="currentColor">
-              <path fillRule="evenodd"
-                    d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                    clipRule="evenodd"/>
-            </svg>
-            <span className="font-semibold">Logout</span>
-          </button>
-        </div>
+        <button className="rounded inline-flex items-center flex p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm" onClick={onLogout}>
+          <ExitArrow className="w-4 h-4 mr-2"/>
+          <span className="font-semibold">Logout</span>
+        </button>
       </div>
     </aside>
   )

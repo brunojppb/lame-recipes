@@ -4,7 +4,7 @@
   "description": "A lame recipes app like any other, but just in React, Typescript and Express",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "NODE_ENV=development nodemon server.js",
     "serve": "NODE_ENV=production node server.js",
     "migratedb": "sequelize-cli db:migrate",
     "prettier-format": "prettier 'src/**/*.js' --write"
@@ -15,9 +15,12 @@
     "@godaddy/terminus": "^4.4.1",
     "@graphql-tools/load-files": "^6.2.5",
     "@graphql-tools/merge": "^6.2.5",
+    "apollo-server": "^2.19.0",
     "apollo-server-express": "^2.19.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
@@ -35,6 +38,5 @@
     "eslint-plugin-prettier": "^3.2.0",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }

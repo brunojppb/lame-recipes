@@ -2,7 +2,26 @@ const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./graphql/types');
 const resolvers = require('./graphql/resolvers');
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+const { IsAuthenticatedDirective } = require('./graphql/directives/IsAuthenticatedDirective')
+const { getUserFromSession, AUTH_HEADER } = require('./auth');
+
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    isAuthenticated: IsAuthenticatedDirective,
+  },
+  context: async ({ req }) => {
+    const context = { request: req }
+    const token = req.cookies[AUTH_HEADER];
+    if (token) {
+      const user = await getUserFromSession(token);
+      req.user = user;
+      context.user = user
+    }
+    return context;
+  },
+});
 
 module.exports = {
   apolloServer,

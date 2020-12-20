@@ -1,12 +1,13 @@
 const Routes = {
-  dashboard: '/app',
+  root: '/app',
   login: '/app/login',
   signup: '/app/signup',
-  recipes: '/app/recipes',
-  newRecipe: '/app/recipes/new',
-  recipe: '/app/recipes/:id',
-  editRecipe: '/app/recipes/:id/edit',
-  settings: '/app/settings',
+  dashboard: '/app/my',
+  recipes: '/app/my/recipes',
+  newRecipe: '/app/my/recipes/new',
+  recipe: '/app/my/recipes/:id',
+  editRecipe: '/app/my/recipes/:id/edit',
+  settings: '/app/my/settings',
 }
 
 export default Routes;

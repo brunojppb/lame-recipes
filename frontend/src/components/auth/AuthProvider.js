@@ -3,26 +3,41 @@ import React, {
   createContext,
   useEffect,
   useContext,
+  useCallback
 } from 'react'
+import {gql, useQuery} from "@apollo/client";
 
 
 const AuthContext = createContext(null)
 
-export default function AuthProvider({children}) {
-  const [{user, isLoading}, setState] = useState({
-    user: null,
-    isLoading: false,
-  })
+const GET_ME = gql`
+    {
+        user: getMe {
+            name
+            email
+        }
+    }
+`
 
-  useEffect(() => {
-    // TODO: try to fetch user profile on first page load
+export default function AuthProvider({children}) {
+  const [user, setUser] = useState(null)
+  const {loading, data} = useQuery(GET_ME)
+
+  const onSignOut = useCallback(() => {
+    setUser(null)
   }, [])
 
+  useEffect(() => {
+    if (data && data.user) {
+      setUser(data.user)
+    }
+  }, [data])
+
   // TODO: Replace loader with a proper component
-  return isLoading ? (
+  return loading ? (
     'loading...'
   ) : (
-    <AuthContext.Provider value={{user}}>
+    <AuthContext.Provider value={{user, setUser, onSignOut}}>
       {children}
     </AuthContext.Provider>
   )

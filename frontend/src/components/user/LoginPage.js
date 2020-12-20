@@ -1,29 +1,59 @@
 import React from 'react';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useHistory} from 'react-router-dom';
 import {useForm} from 'react-hook-form'
+import {gql, useMutation} from "@apollo/client";
 
 import CenterLayout from "../common/CenterLayout";
 import Routes from "../../routes";
 import LockIcon from "../icons/LockIcon";
+import {useAuth} from "../auth/AuthProvider";
+
+const LOGIN_MUTATION = gql`
+    mutation signIn($input: SigninInput!) {
+        user: signIn(input: $input) {
+            name
+            email
+        }
+    }
+`;
 
 export default function LoginPage() {
-
+  const history = useHistory()
   const {register, handleSubmit} = useForm()
+  const {setUser} = useAuth()
+  const [signIn, {loading}] = useMutation(LOGIN_MUTATION)
 
-  const onSubmit = (data) => {
-    console.log('this is the data:', data);
+  const onSubmit = async (data) => {
+    const {email, password} = data;
+    try {
+      const {data} = await signIn({
+        variables: {
+          input: {
+            email,
+            password
+          }
+        }
+      });
+      const {user} = data;
+      if (user) {
+        setUser(user);
+        history.replace(Routes.recipes)
+      }
+    } catch (e) {
+      console.log('could not login', e)
+    }
   }
 
   return(
     <CenterLayout padding="size-10">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-300">
             Lame Recipes
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-gray-500">
-              New around here? Create your account
+            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-gray-400 dark:text-gray-100">
+              New around here? Create your account.
             </RouterLink>
           </p>
         </div>
@@ -38,7 +68,7 @@ export default function LoginPage() {
                      autoComplete="email"
                      ref={register}
                      required
-                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                      placeholder="Email address"/>
             </div>
             <div>
@@ -49,25 +79,26 @@ export default function LoginPage() {
                      type="password"
                      autoComplete="current-password"
                      required
-                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md mt-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                      placeholder="Password"/>
             </div>
           </div>
 
           <button type="submit"
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  disabled={loading}
+                  className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${loading ? 'disabled:bg-gray-200' : ''}`}>
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LockIcon/>
               </span>
             Sign in
           </button>
-          <div className="flex items-center justify-center">
-            <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
+          {/*<div className="flex items-center justify-center">*/}
+          {/*  <div className="text-sm">*/}
+          {/*    <a href="#" className="font-medium text-blue-600 hover:text-indigo-500">*/}
+          {/*      Forgot your password?*/}
+          {/*    </a>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </form>
       </div>
     </CenterLayout>

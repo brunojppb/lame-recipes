@@ -44,7 +44,26 @@ I have a simple goal for this project. A webapp where my wife and I can upload o
 - [x] Add React app as frontend
 - [x] Serve React app from express in production
 
-### Milestone 3
+### Milestone 4
+
+- [x] Add authentication layer
+- [x] Add custom directives for authentication
+- [x] Protect auth routes on the frontend
+- [x] User signup
+- [x] User Sign in
+- [ ] Global error handler on Apollo Server for better message formatting
+- [ ] Better error handling on the frontend
+
+### Milestone 5
+
+- [ ] Create recipes from client
+- [ ] List client recipes
+- [ ] Search for recipes
+- [ ] Add tags to Recipe model
+- [ ] Add prep time to Recipe model
+- [ ] 
+
+### Milestone X
 
 - [ ] Integrate Cypress for end-to-end tests
 
