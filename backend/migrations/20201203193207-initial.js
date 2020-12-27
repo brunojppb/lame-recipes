@@ -52,53 +52,6 @@ module.exports = {
         transaction,
       });
 
-      console.log('Creating "recipes" table)');
-      await queryInterface.createTable(
-        'recipes',
-        {
-          id: {
-            primaryKey: true,
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
-          },
-          name: {
-            type: Sequelize.DataTypes.STRING,
-            allowNull: false,
-          },
-          content: {
-            type: Sequelize.DataTypes.TEXT,
-            allowNull: false,
-          },
-          userId: {
-            type: Sequelize.DataTypes.UUID,
-            allowNull: false,
-          },
-          createdAt: {
-            type: Sequelize.DataTypes.DATE,
-            allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
-          },
-          updatedAt: {
-            type: Sequelize.DataTypes.DATE,
-            allowNull: false,
-            defaultValue: Sequelize.DataTypes.NOW,
-          },
-        },
-        {
-          transaction,
-        }
-      );
-
-      await queryInterface.addConstraint('recipes', {
-        type: 'FOREIGN KEY',
-        fields: ['userId'],
-        references: {
-          table: 'users',
-          field: 'id',
-        },
-        transaction,
-      });
-
       console.log('Creating "userSessions" table)');
       await queryInterface.createTable(
         'userSessions',
@@ -197,6 +150,77 @@ module.exports = {
         transaction,
       });
 
+      console.log('Creating "recipes" table)');
+      await queryInterface.createTable(
+        'recipes',
+        {
+          id: {
+            primaryKey: true,
+            type: Sequelize.DataTypes.UUID,
+            defaultValue: Sequelize.DataTypes.UUIDV4,
+          },
+          name: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+          },
+          content: {
+            type: Sequelize.DataTypes.TEXT,
+            allowNull: false,
+          },
+          serving: {
+            type: Sequelize.DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 1
+          },
+          prepTime: {
+            type: Sequelize.DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 1
+          },
+          userId: {
+            type: Sequelize.DataTypes.UUID,
+            allowNull: false,
+          },
+          coverId: {
+            type: Sequelize.DataTypes.UUID,
+            allowNull: true,
+          },
+          createdAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.DataTypes.NOW,
+          },
+          updatedAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.DataTypes.NOW,
+          },
+        },
+        {
+          transaction,
+        }
+      );
+
+      await queryInterface.addConstraint('recipes', {
+        type: 'FOREIGN KEY',
+        fields: ['userId'],
+        references: {
+          table: 'users',
+          field: 'id',
+        },
+        transaction,
+      });
+
+      await queryInterface.addConstraint('recipes', {
+        type: 'FOREIGN KEY',
+        fields: ['coverId'],
+        references: {
+          table: 'files',
+          field: 'id',
+        },
+        transaction,
+      });
+
       await transaction.commit();
     } catch (error) {
       console.error('Could not create "recipe" table:', error);
@@ -209,14 +233,14 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
     try {
 
+      console.log('dropping "recipes" table');
+      await queryInterface.dropTable('recipes', { transaction });
+
       console.log('dropping "files" table');
       await queryInterface.dropTable('files', { transaction });
 
       console.log('dropping "userSessions" table');
       await queryInterface.dropTable('userSessions', { transaction });
-
-      console.log('dropping "recipes" table');
-      await queryInterface.dropTable('recipes', { transaction });
 
       console.log('dropping "users" table');
       await queryInterface.dropTable('users', { transaction });

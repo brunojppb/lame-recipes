@@ -1,3 +1,4 @@
+require('dotenv').config()
 const http = require('http');
 const { createTerminus } = require('@godaddy/terminus');
 const { app } = require('./app.js');
@@ -30,14 +31,12 @@ createTerminus(server, {
   onSignal: teardown,
 });
 
-async function startServer() {
+(async function startServer() {
   await setupDatabaseConn();
-  const port = app.get('port');
+  const port = process.env.PORT || 5000;
   server.listen({ port }, () => {
     console.log(
       `🚀 Server running on port ${port} for env ${process.env.NODE_ENV}`
     );
   });
-}
-
-startServer();
+})()

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('./index.js');
+const File = require('./file');
 
 const Recipe = sequelize.define(
   'recipes',
@@ -21,14 +22,38 @@ const Recipe = sequelize.define(
       allowNull: false,
       default: ''
     },
+    /** The number of people this recipe can serve */
+    serving: {
+      type: Sequelize.DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
+    },
+    prepTime: {
+      type: Sequelize.DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
+    },
     userId: {
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
+    },
+    coverId: {
+      type: Sequelize.DataTypes.UUID,
+      allowNull: true,
     },
   },
   {
     timestamps: true,
   }
 );
+
+Recipe.belongsTo(File, {
+  foreignKey: {
+    name: 'coverId',
+    allowNull: true,
+  },
+  as: 'cover',
+  targetKey: 'id',
+});
 
 module.exports = Recipe;

@@ -40,8 +40,7 @@ async function processUpload(upload, userId) {
         .pipe(writeStream)
         .on('finish', async () => {
           const file = await FileRepo.createFile(id, mimetype, fileExtension, userId)
-          const url = `/images/${file.id}.${file.extension}`
-          return resolve({ id, url })
+          return resolve(file)
         })
         .on('error', reject)
     });

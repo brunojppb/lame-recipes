@@ -20,6 +20,12 @@ const File = sequelize.define(
       type: Sequelize.DataTypes.UUID,
       allowNull: false,
     },
+    url: {
+      type: Sequelize.DataTypes.VIRTUAL,
+      get() {
+        return `/uploads/${this.id}.${this.extension}`;
+      }
+    }
   },
   {
     timestamps: true,

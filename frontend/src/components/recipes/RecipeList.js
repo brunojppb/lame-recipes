@@ -14,7 +14,7 @@ export default function RecipeList() {
     <>
       <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">My Recipes</h2>
       <div className="grid grid-cols-4 gap-4">
-        {data.recipes.map(r => <RecipeItem key={r.id} id={r.id} name={r.name}/>)}
+        {data.recipes.map(r => <RecipeItem key={r.id} id={r.id} name={r.name} cover={r.cover}/>)}
       </div>
     </>
   )

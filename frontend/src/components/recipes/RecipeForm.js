@@ -8,8 +8,9 @@ export default function RecipeForm(
   {
     name = '',
     content = '',
-    imageUrl = null,
+    image = null,
     isSaving = false,
+    onRemoveImage,
     onImageUpload,
     onSave
   }) {
@@ -34,40 +35,55 @@ export default function RecipeForm(
 
   const onSubmit = (data) => {
     const {name, content} = data;
-    console.log('saving recipe', data)
     onSave(name, content)
+  }
+
+  const _renderImage = () => {
+    return (
+      <div className="blogs bg-white mr-5">
+        <img src={image.url} alt="recipe cover" className="w-full max-w-screen-sm"/>
+        <button onClick={() => onRemoveImage()}
+                className="py-1 px-1 mt-4 px-6 text-white bg-red-600 inline-block rounded">
+          Remove Cover
+        </button>
+      </div>
+    )
+  }
+
+  const _renderUploadForm = () => {
+    return(
+      <div className="file-upload-container">
+        <label className="block text-sm font-medium text-gray-700">
+          Cover photo
+        </label>
+        <div
+          className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md" {...getRootProps()}>
+          <div className="space-y-1 text-center">
+            <ImageUploadIcon/>
+            <div className="flex text-sm text-gray-600">
+              <label
+                className="relative cursor-pointer bg-white rounded-md font-medium text-blue-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                <span>Upload a file</span>
+              </label>
+              <input name="file-upload"
+                     accept="image/jpg,image/jpeg,image/png"
+                     className="sr-only"
+                     {...getInputProps()}/>
+              <p className="pl-1">or drag and drop</p>
+            </div>
+            <p className="text-xs text-gray-500">
+              PNG, JPG, GIF up to 3MB
+            </p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="py-5 bg-white">
-        <div className="file-upload-container">
-          <label className="block text-sm font-medium text-gray-700">
-            Cover photo
-          </label>
-          <div
-            className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md" {...getRootProps()}>
-            <div className="space-y-1 text-center">
-              <ImageUploadIcon/>
-              <div className="flex text-sm text-gray-600">
-                <label
-                  className="relative cursor-pointer bg-white rounded-md font-medium text-blue-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                  <span>Upload a file</span>
-                </label>
-                <input name="file-upload"
-                       accept="image/jpg,image/jpeg,image/png"
-                       className="sr-only"
-                       {...getInputProps()}/>
-                <p className="pl-1">or drag and drop</p>
-              </div>
-              <p className="text-xs text-gray-500">
-                PNG, JPG, GIF up to 3MB
-              </p>
-            </div>
-          </div>
-          {imageUrl && <img src={imageUrl}/>}
-        </div>
-
+        {(image && image.url) ? _renderImage() : _renderUploadForm() }
         <div className="grid grid-cols-x3 gap-6 mt-4">
           <div className="col-span-3 sm:col-span-2">
             <label htmlFor="recipe-name" className="block text-sm font-medium text-gray-700">
@@ -112,8 +128,12 @@ export default function RecipeForm(
 RecipeForm.propTypes = {
   name: PropTypes.string,
   content: PropTypes.string,
-  imageUrl: PropTypes.string,
+  image: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired
+  }),
   isSaving: PropTypes.bool.isRequired,
   onImageUpload: PropTypes.func.isRequired,
+  onRemoveImage: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
 }
