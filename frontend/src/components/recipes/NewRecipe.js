@@ -12,7 +12,7 @@ export default function NewRecipe() {
 
   const [createRecipe, {loading}] = useMutation(NEW_RECIPE_MUTATION)
   const [uploadImage, {loading: isUploading}] = useMutation(UPLOAD_IMAGE_MUTATION)
-  const [imageUrl, setImageUrl] = useState(null)
+  const [image, setImage] = useState(null)
   const history = useHistory()
 
   const onImageUpload = useCallback(async (file) => {
@@ -22,13 +22,17 @@ export default function NewRecipe() {
           file
         }
       })
-      const {url} = result.data.image;
-      setImageUrl(url)
+      const {image} = result.data;
+      setImage(image)
     } catch (e) {
       console.error("could not upload: ", e)
     }
 
   }, [uploadImage])
+
+  const onRemoveImage = useCallback(() => {
+    setImage(null)
+  }, [])
 
   const onSaveRecipe = async (name, content) => {
     try {
@@ -36,11 +40,12 @@ export default function NewRecipe() {
         variables: {
           input: {
             name,
-            content
+            content,
+            coverId: image?.id
           }
         },
         update(cache, { data: { newRecipe } }) {
-          const {recipes} = cache.readQuery({query: QUERY_MY_RECIPES})
+          const {recipes} = cache.readQuery({query: QUERY_MY_RECIPES}) || {recipes: []}
           const updatedRecipes = [...recipes, newRecipe]
           cache.writeQuery({
             query: QUERY_MY_RECIPES,
@@ -63,7 +68,8 @@ export default function NewRecipe() {
       </h1>
       <RecipeForm isSaving={loading}
                   onImageUpload={onImageUpload}
-                  imageUrl={imageUrl}
+                  image={image}
+                  onRemoveImage={onRemoveImage}
                   onSave={onSaveRecipe}/>
     </>
   )

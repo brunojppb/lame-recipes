@@ -14,9 +14,9 @@ const Auth = gql`
   }
 
   extend type Mutation {
-    signIn(input: SigninInput): User
-    signUp(input: SignupInput): User
-    signOut: Boolean
+    signIn(input: SigninInput!): User
+    signUp(input: SignupInput!): User
+    signOut: Boolean!
   }
 `;
 

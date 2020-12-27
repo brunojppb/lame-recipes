@@ -5,7 +5,7 @@ import React, {
   useContext,
   useCallback
 } from 'react'
-import {gql, useQuery} from "@apollo/client";
+import {gql, useQuery, useApolloClient} from "@apollo/client";
 
 
 const AuthContext = createContext(null)
@@ -24,8 +24,10 @@ export default function AuthProvider({children}) {
   // Using cache.writeQuery instead to replace `setUser`
   const [user, setUser] = useState(undefined)
   const {loading, data, error} = useQuery(GET_ME)
+  const client = useApolloClient()
 
-  const onSignOut = useCallback(() => {
+  const onSignOut = useCallback(async () => {
+    await client.clearStore()
     setUser(null)
   }, [])
 
