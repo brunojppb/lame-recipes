@@ -1,21 +1,13 @@
 import React from 'react';
 import {Link as RouterLink, useHistory} from 'react-router-dom';
 import {useForm} from 'react-hook-form'
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
 
 import CenterLayout from "../common/CenterLayout";
 import Routes from "../../routes";
 import LockIcon from "../icons/LockIcon";
 import {useAuth} from "../auth/AuthProvider";
-
-const LOGIN_MUTATION = gql`
-    mutation signIn($input: SigninInput!) {
-        user: signIn(input: $input) {
-            name
-            email
-        }
-    }
-`;
+import {LOGIN_MUTATION} from "../../graphql/mutations";
 
 export default function LoginPage() {
   const history = useHistory()
@@ -51,11 +43,6 @@ export default function LoginPage() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-300">
             Lame Recipes
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-gray-400 dark:text-gray-100">
-              New around here? Create your account.
-            </RouterLink>
-          </p>
         </div>
         <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
           <input type="hidden" name="remember" value="true"/>
@@ -92,13 +79,11 @@ export default function LoginPage() {
               </span>
             Sign in
           </button>
-          {/*<div className="flex items-center justify-center">*/}
-          {/*  <div className="text-sm">*/}
-          {/*    <a href="#" className="font-medium text-blue-600 hover:text-indigo-500">*/}
-          {/*      Forgot your password?*/}
-          {/*    </a>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          <p className="mt-2 text-center text-sm text-gray-600">
+            <RouterLink to={Routes.signup} className="font-medium text-blue-600 hover:text-gray-400 dark:text-gray-100">
+              New around here? Create your account.
+            </RouterLink>
+          </p>
         </form>
       </div>
     </CenterLayout>

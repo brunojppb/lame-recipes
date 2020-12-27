@@ -3,16 +3,9 @@ import {Link as RouterLink, useHistory} from "react-router-dom";
 import Routes from "../../routes";
 import CenterLayout from "../common/CenterLayout";
 import {useForm} from "react-hook-form";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
+import {SIGNUP_MUTATION} from "../../graphql/mutations";
 
-const SIGNUP_MUTATION = gql`
-    mutation signUp($input: SignupInput!) {
-        user: signUp(input: $input) {
-            name
-            email
-        }
-    }
-`
 
 export default function SignupPage() {
 
@@ -47,11 +40,6 @@ export default function SignupPage() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-300">
             Lame Recipes
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            <RouterLink to={Routes.login} className="font-medium text-blue-600 hover:text-gray-400 dark:text-gray-100">
-              Have an account already? Login here.
-            </RouterLink>
-          </p>
         </div>
         <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-md shadow-sm -space-y-px">
@@ -103,6 +91,11 @@ export default function SignupPage() {
                   className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${false ? 'disabled:bg-gray-200' : ''}`}>
             Create Account
           </button>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            <RouterLink to={Routes.login} className="font-medium text-blue-600 hover:text-gray-400 dark:text-gray-100">
+              Have an account already? Login here.
+            </RouterLink>
+          </p>
         </form>
       </div>
     </CenterLayout>
