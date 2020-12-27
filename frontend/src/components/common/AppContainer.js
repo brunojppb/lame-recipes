@@ -11,13 +11,13 @@ export default function AppContainer() {
     <main className="relative">
       <AppLayout>
         <Switch>
-          <Route path={Routes.dashboard} exact>
+          <Route path={Routes.dashboard} exact={true}>
             <Redirect to={Routes.recipes}/>
           </Route>
-          <Route path={Routes.recipes} exact>
+          <Route path={Routes.recipes} exact={true}>
             <RecipeList/>
           </Route>
-          <Route path={Routes.newRecipe} exact>
+          <Route path={Routes.newRecipe} exact={true}>
             <NewRecipe/>
           </Route>
         </Switch>

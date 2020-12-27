@@ -1,15 +1,33 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useForm} from 'react-hook-form'
+import {useDropzone} from 'react-dropzone'
 import ImageUploadIcon from "../icons/ImageUploadIcon";
 import PropTypes from 'prop-types';
 
-export default function RecipeForm({name = '', content = '', isSaving = false, onSave}) {
+export default function RecipeForm({
+ name = '',
+ content = '',
+ isSaving = false,
+ onImageUpload,
+ onSave}) {
 
   const {register, handleSubmit} = useForm({
     defaultValues: {
       name, content
     }
   })
+
+  const onDrop = useCallback(files => {
+    const [file] = files;
+    if (file) {
+      onImageUpload(file)
+    }
+  }, [])
+
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+    onDrop,
+    accept: '.jpg,.png',
+  });
 
   const onSubmit = (data) => {
     const {name, content} = data;
@@ -20,24 +38,22 @@ export default function RecipeForm({name = '', content = '', isSaving = false, o
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="py-5 bg-white">
-        <div>
+        <div className="file-upload-container">
           <label className="block text-sm font-medium text-gray-700">
             Cover photo
           </label>
-          <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+          <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md" {...getRootProps()}>
             <div className="space-y-1 text-center">
               <ImageUploadIcon/>
               <div className="flex text-sm text-gray-600">
-                <label htmlFor="file-upload"
-                       className="relative cursor-pointer bg-white rounded-md font-medium text-blue-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-800 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                   <span>Upload a file</span>
-                  <input id="file-upload"
-                         name="file-upload"
-                         type="file"
-                         accept="image/jpg,image/jpeg,image/png"
-                         className="sr-only"/>
                 </label>
-                <p className="pl-1">or drag and drop</p>
+                <input name="file-upload"
+                       accept="image/jpg,image/jpeg,image/png"
+                       className="sr-only"
+                       {...getInputProps()}/>
+                {isDragActive ? <p className="pl-1">or drag and drop</p> : null }
               </div>
               <p className="text-xs text-gray-500">
                 PNG, JPG, GIF up to 3MB
@@ -90,5 +106,6 @@ RecipeForm.propTypes = {
   name: PropTypes.string,
   content: PropTypes.string,
   isSaving: PropTypes.bool.isRequired,
-  onSave: PropTypes.func.isRequired
+  onImageUpload: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
 }
