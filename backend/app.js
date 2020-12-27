@@ -23,7 +23,7 @@ app.use(express.static('public'));
 // and any static asset it contains
 app.use(express.static(join(__dirname, '../frontend/build')));
 
-// Any route after app mounts the React app
+// Any route once the app mounts the React app
 // react-router takes care of the rest
 ['/app', '/app/*'].forEach((route) => {
   app.use(
@@ -31,6 +31,8 @@ app.use(express.static(join(__dirname, '../frontend/build')));
     express.static(join(__dirname, '../frontend/build/index.html'))
   );
 });
+
+app.use('/images', express.static('uploads'))
 
 module.exports = {
   app,

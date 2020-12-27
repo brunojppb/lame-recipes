@@ -11,6 +11,9 @@
   },
   "author": "Bruno Paulino",
   "license": "MIT",
+  "engines": {
+    "node": "12.20.0"
+  },
   "dependencies": {
     "@godaddy/terminus": "^4.4.1",
     "@graphql-tools/load-files": "^6.2.5",
@@ -28,7 +31,8 @@
     "ncp": "^2.0.0",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^7.14.0",

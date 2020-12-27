@@ -1,24 +1,23 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('./index.js');
 
-const UserSession = sequelize.define(
-  'userSessions',
+const File = sequelize.define(
+  'files',
   {
     id: {
       primaryKey: true,
       type: Sequelize.DataTypes.UUID,
-      defaultValue: Sequelize.DataTypes.UUIDV4,
     },
-    token: {
+    mimetype: {
+      type: Sequelize.DataTypes.STRING,
+      allowNull: false,
+    },
+    extension: {
       type: Sequelize.DataTypes.STRING,
       allowNull: false,
     },
     userId: {
       type: Sequelize.DataTypes.UUID,
-      allowNull: false,
-    },
-    expireAt: {
-      type: Sequelize.DataTypes.DATE,
       allowNull: false,
     },
   },
@@ -27,4 +26,4 @@ const UserSession = sequelize.define(
   }
 );
 
-module.exports = UserSession;
+module.exports = File;
