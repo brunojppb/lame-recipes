@@ -40,6 +40,9 @@ yarn.lock
 #sqlite databse
 *.sqlite3
 
+# File uploads
+/backend/uploads
+
 # #################
 # React Frontend
 # #################

@@ -151,6 +151,52 @@ module.exports = {
         transaction,
       });
 
+      console.log('Creating "files" table)');
+      await queryInterface.createTable(
+        'files',
+        {
+          id: {
+            primaryKey: true,
+            type: Sequelize.DataTypes.UUID,
+          },
+          mimetype: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+          },
+          extension: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+          },
+          userId: {
+            type: Sequelize.DataTypes.UUID,
+            allowNull: false,
+          },
+          createdAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.DataTypes.NOW,
+          },
+          updatedAt: {
+            type: Sequelize.DataTypes.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.DataTypes.NOW,
+          },
+        },
+        {
+          transaction,
+        }
+      );
+
+      await queryInterface.addConstraint('files', {
+        type: 'FOREIGN KEY',
+        fields: ['userId'],
+        references: {
+          table: 'users',
+          field: 'id',
+        },
+        transaction,
+      });
+
       await transaction.commit();
     } catch (error) {
       console.error('Could not create "recipe" table:', error);
@@ -162,6 +208,9 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
     try {
+
+      console.log('dropping "files" table');
+      await queryInterface.dropTable('files', { transaction });
 
       console.log('dropping "userSessions" table');
       await queryInterface.dropTable('userSessions', { transaction });

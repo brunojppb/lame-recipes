@@ -2,6 +2,7 @@ const { gql } = require('apollo-server-express');
 const Recipe = require('./recipe');
 const User = require('./user');
 const Auth = require('./auth');
+const FileUpload = require('./fileUpload')
 
 const Root = gql`
   schema {
@@ -15,6 +16,6 @@ const Root = gql`
   directive @isAuthenticated on FIELD_DEFINITION | FIELD
 `;
 
-const typeDefs = [Root, Recipe, User, Auth];
+const typeDefs = [Root, Recipe, User, Auth, FileUpload];
 
 module.exports = typeDefs;

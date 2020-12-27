@@ -1,4 +1,5 @@
 const { ApolloServer } = require('apollo-server-express');
+
 const typeDefs = require('./graphql/types');
 const resolvers = require('./graphql/resolvers');
 
@@ -16,8 +17,7 @@ const apolloServer = new ApolloServer({
     const token = req.cookies[AUTH_HEADER];
     if (token) {
       const user = await getUserFromSession(token);
-      req.user = user;
-      context.user = user
+      context.user = user;
     }
     return context;
   },
