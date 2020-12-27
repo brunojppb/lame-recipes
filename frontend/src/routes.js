@@ -8,6 +8,9 @@ const Routes = {
   recipe: '/app/my/recipes/:id',
   editRecipe: '/app/my/recipes/:id/edit',
   settings: '/app/my/settings',
+  recipePath(recipeId) {
+    return this.recipe.replace(':id', recipeId)
+  }
 }
 
 export default Routes;
