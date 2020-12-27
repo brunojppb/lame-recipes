@@ -23,15 +23,21 @@ export default function AuthProvider({children}) {
   // TODO: Use Apollo cache instead of own user state here
   // Using cache.writeQuery instead to replace `setUser`
   const [user, setUser] = useState(undefined)
-  const {loading, data} = useQuery(GET_ME)
+  const {loading, data, error} = useQuery(GET_ME)
 
   const onSignOut = useCallback(() => {
     setUser(null)
   }, [])
 
+  // TODO: Need better error handling here
+  // This reactive updates from useQuery isn't ideal
   useEffect(() => {
-    setUser((data && data.user) ? data.user : null)
-  }, [data])
+    if (typeof data !== 'undefined') {
+      setUser(data.user ? data.user : null)
+    } else if (error) {
+      setUser(null)
+    }
+  }, [data, error])
 
   // TODO: Replace loader with a proper component
   if (loading || typeof user === 'undefined') return 'Loading...'

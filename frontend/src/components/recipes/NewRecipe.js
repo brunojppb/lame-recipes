@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useMutation} from "@apollo/client";
 import {useHistory} from 'react-router-dom';
 
@@ -11,6 +11,10 @@ export default function NewRecipe() {
 
   const [createRecipe, {loading}] = useMutation(NEW_RECIPE_MUTATION)
   const history = useHistory()
+
+  const onImageUpload = useCallback((imageFile) => {
+    console.log('image selected: ', imageFile)
+  }, [])
 
   const onSaveRecipe = async (name, content) => {
     try {
@@ -43,7 +47,7 @@ export default function NewRecipe() {
       <h1 className="text-2xl">
         New Recipe
       </h1>
-      <RecipeForm isSaving={loading} onSave={onSaveRecipe}/>
+      <RecipeForm isSaving={loading} onImageUpload={onImageUpload} onSave={onSaveRecipe}/>
     </>
   )
 

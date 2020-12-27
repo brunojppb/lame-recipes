@@ -21,13 +21,13 @@ export default function App() {
             <Route path="/" exact>
               <Redirect to={Routes.login}/>
             </Route>
-            <RedirectAuthUserRoute path={Routes.root} exact>
+            <RedirectAuthUserRoute path={Routes.root} exact={true}>
               <LoginPage/>
             </RedirectAuthUserRoute>
-            <RedirectAuthUserRoute path={Routes.login} exact>
+            <RedirectAuthUserRoute path={Routes.login} exact={true}>
               <LoginPage/>
             </RedirectAuthUserRoute>
-            <RedirectAuthUserRoute path={Routes.signup} exact>
+            <RedirectAuthUserRoute path={Routes.signup} exact={true}>
               <SignupPage/>
             </RedirectAuthUserRoute>
             <ProtectedRoute path={Routes.dashboard}>
