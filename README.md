@@ -1,4 +1,5 @@
 # [Lame Recipes](https://lamerecipes.com)
+![Docker Build and Deploy](https://github.com/brunojppb/lame-recipes/workflows/Build%20and%20Deploy/badge.svg?branch=master)
 
 A simple app to gather your recipes.
 
