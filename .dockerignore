@@ -1,0 +1,12 @@
+backend/node_modules
+frontend/node_modules
+frontend/build
+backend/uploads/*
+backend/db/*
+.idea
+.idea_modules
+RUNNING_PID
+.DS_Store
+.git
+.gitignore
+*.sqlite3
