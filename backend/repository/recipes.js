@@ -2,9 +2,13 @@ const Recipe = require('../models/recipe');
 const File = require('../models/file');
 
 async function findRecipe(id, userId) {
-  const recipe = await Recipe.findOne({where: {id, userId}, include: 'files'});
-  console.log('recipe found: ', {recipe})
-  return recipe
+  return Recipe.findOne({
+    where: {id, userId},
+    include: {
+      model: File,
+      as: 'cover'
+    }
+  });
 }
 
 async function createRecipe(name, content, coverId, userId) {

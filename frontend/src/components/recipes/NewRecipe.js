@@ -45,7 +45,8 @@ export default function NewRecipe() {
           }
         },
         update(cache, { data: { newRecipe } }) {
-          const {recipes} = cache.readQuery({query: QUERY_MY_RECIPES}) || {recipes: []}
+          const {recipes} = cache.readQuery({query: QUERY_MY_RECIPES})
+          if (!recipes) return;
           const updatedRecipes = [...recipes, newRecipe]
           cache.writeQuery({
             query: QUERY_MY_RECIPES,

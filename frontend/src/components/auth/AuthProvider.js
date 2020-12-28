@@ -5,19 +5,12 @@ import React, {
   useContext,
   useCallback
 } from 'react'
-import {gql, useQuery, useApolloClient} from "@apollo/client";
+import {useQuery, useApolloClient} from "@apollo/client";
+import {GET_ME} from "../../graphql/queries";
+import Loader from "../common/Loader";
 
 
 const AuthContext = createContext(null)
-
-const GET_ME = gql`
-    {
-        user: getMe {
-            name
-            email
-        }
-    }
-`
 
 export default function AuthProvider({children}) {
   // TODO: Use Apollo cache instead of own user state here
@@ -41,8 +34,7 @@ export default function AuthProvider({children}) {
     }
   }, [data, error])
 
-  // TODO: Replace loader with a proper component
-  if (loading || typeof user === 'undefined') return 'Loading...'
+  if (loading || typeof user === 'undefined') return <Loader/>
 
   return (
     <AuthContext.Provider value={{user, setUser, onSignOut}}>
