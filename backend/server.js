@@ -6,7 +6,7 @@ const config = require('./config')
 const {
   setupDatabaseConn,
   teardownDatabaseConn,
-} = require('./models/index.js');
+} = require('./models');
 
 // Setup Apollo GraphQL endpoint
 apolloServer.applyMiddleware({ app });

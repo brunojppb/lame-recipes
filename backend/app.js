@@ -11,7 +11,7 @@ const app = express();
 
 // Express configuration
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 app.use(cookieParser());
 
 // I still want the homepage of our app to be very lean
