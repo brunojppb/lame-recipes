@@ -4,6 +4,7 @@ import {Switch, Route, Redirect} from "react-router-dom";
 import RecipeList from "../recipes/RecipeList";
 import Routes from "../../routes";
 import NewRecipe from "../recipes/NewRecipe";
+import RecipePage from "../recipes/RecipePage";
 
 export default function AppContainer() {
 
@@ -19,6 +20,9 @@ export default function AppContainer() {
           </Route>
           <Route path={Routes.newRecipe} exact={true}>
             <NewRecipe/>
+          </Route>
+          <Route path={Routes.recipe} exact={true}>
+            <RecipePage/>
           </Route>
         </Switch>
       </AppLayout>
