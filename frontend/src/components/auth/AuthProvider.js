@@ -22,7 +22,7 @@ export default function AuthProvider({children}) {
   const onSignOut = useCallback(async () => {
     await client.clearStore()
     setUser(null)
-  }, [])
+  }, [client])
 
   // TODO: Need better error handling here
   // This reactive updates from useQuery isn't ideal

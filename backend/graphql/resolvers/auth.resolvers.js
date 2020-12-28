@@ -1,5 +1,5 @@
+const config = require('../../config');
 const { validatePassword, generateToken, hashPassword, AUTH_HEADER } = require('../../auth');
-
 const { UserSessionRepo } = require('../../repository/userSession');
 const { UserRepo } = require('../../repository/user');
 
@@ -43,9 +43,9 @@ async function signIn(root, args, { request }) {
 
   request.res.cookie(AUTH_HEADER, session.token, {
     maxAge: Math.abs(oneYearFromNow - new Date()),
-    httpOnly: false,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: false,
+    httpOnly: true,
+    secure: config.isHttpsActive,
+    sameSite: true,
   });
 
   return user;

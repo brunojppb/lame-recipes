@@ -66,7 +66,8 @@ export default function RecipeForm(
                 <span>Upload a file</span>
               </label>
               <input name="file-upload"
-                     accept="image/jpg,image/jpeg,image/png"
+                     accept="image/*"
+                     capture={true}
                      className="sr-only"
                      {...getInputProps()}/>
               <p className="pl-1">or drag and drop</p>

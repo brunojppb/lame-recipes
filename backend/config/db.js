@@ -1,6 +1,6 @@
-const dbFile = `db/recipes.${process.env.NODE_ENV || 'development'}.sqlite3`;
-
-const logging = process.env.DB_LOGGING ? console.log : false
+const config = require('./index')
+const dbFile = `db/recipes.${config.mode}.sqlite3`;
+const logging = config.enableDBLogging && console.log;
 
 module.exports = {
   dialect: 'sqlite',

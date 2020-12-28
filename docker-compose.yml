@@ -12,6 +12,7 @@ services:
     environment:
       - PORT=5000
       - NODE_ENV=production
+      - IS_HTTPS_ACTIVE=true
       # Use this to automatically generate SSL Certificates and proxy it via nginx-proxy container
       # See https://github.com/jwilder/nginx-proxy
       # See also https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion
@@ -24,8 +25,8 @@ services:
       - "5000:5000"
     restart: always
 
-# This is the network created by the nginx container proxy using compose
-# we could have a custom network created there as well, but I am using the default one
+# This is the network created by the nginx container proxy using compose on my private VPS
+# we could have a custom network created there as well, but I am using the default one :)
 networks:
   proxy_default:
     external: true

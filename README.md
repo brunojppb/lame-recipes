@@ -1,4 +1,4 @@
-# Lame Recipes
+# [Lame Recipes](https://lamerecipes.com)
 
 A simple app to gather your recipes.
 
@@ -51,17 +51,21 @@ I have a simple goal for this project. A webapp where my wife and I can upload o
 - [x] Protect auth routes on the frontend
 - [x] User signup
 - [x] User Sign in
-- [ ] Global error handler on Apollo Server for better message formatting
-- [ ] Better error handling on the frontend
+- [x] Create recipes from client
+- [x] List client recipes
 
 ### Milestone 5
 
-- [ ] Create recipes from client
-- [ ] List client recipes
-- [ ] Search for recipes
-- [ ] Add tags to Recipe model
-- [ ] Add prep time to Recipe model 
+- [x] Docker support for production deployment
+- [x] Github actions for docker build
+- [x] Automatic deployment pipeline via Github Actions
+
 
 ### Milestone X
 
 - [ ] Integrate Cypress for end-to-end tests
+- [ ] Global error handler on Apollo Server for better message formatting
+- [ ] Better error handling on the frontend
+- [ ] Search for recipes
+- [ ] Add tags to Recipe model
+- [ ] Add prep time to Recipe model

@@ -1,8 +1,8 @@
-require('dotenv').config()
 const http = require('http');
 const { createTerminus } = require('@godaddy/terminus');
 const { app } = require('./app.js');
 const { apolloServer } = require('./apolloServer.js');
+const config = require('./config')
 const {
   setupDatabaseConn,
   teardownDatabaseConn,
@@ -33,10 +33,12 @@ createTerminus(server, {
 
 (async function startServer() {
   await setupDatabaseConn();
-  const port = process.env.PORT || 5000;
-  server.listen({ port }, () => {
+  server.listen({
+    port: config.port
+  },
+    () => {
     console.log(
-      `🚀 Server running on port ${port} for env ${process.env.NODE_ENV}`
+      `🚀 Server running on port ${config.port} for env ${config.mode}`
     );
   });
 })()

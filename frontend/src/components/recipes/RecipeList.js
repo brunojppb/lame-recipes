@@ -2,12 +2,13 @@ import React from 'react';
 import RecipeItem from "./RecipeItem";
 import {useQuery} from "@apollo/client";
 import {QUERY_MY_RECIPES} from "../../graphql/queries";
+import Loader from "../common/Loader";
 
 export default function RecipeList() {
 
   const {loading, error, data} = useQuery(QUERY_MY_RECIPES)
 
-  if (loading) return 'Loading...'
+  if (loading) return <Loader/>
   if (error) return <p>Error: {error}</p>
 
   return (
