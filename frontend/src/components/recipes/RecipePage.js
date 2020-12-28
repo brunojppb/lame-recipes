@@ -3,6 +3,7 @@ import Loader from "../common/Loader";
 import {useQuery} from "@apollo/client";
 import {useParams} from 'react-router-dom';
 
+import recipePlaceholderImg from '../../recipe_placeholder.jpg';
 import {GET_RECIPE} from "../../graphql/queries";
 
 export default function RecipePage() {
@@ -18,8 +19,8 @@ export default function RecipePage() {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="max-w-screen-sm rounded overflow-hidden shadow-lg my-2">
-        {recipe.cover && <img className="w-full" src={recipe.cover.url} alt={recipe.name}/>}
+      <div className="w-full max-w-screen-sm rounded overflow-hidden shadow-lg my-2">
+        <img className="w-full" src={recipe.cover?.url || recipePlaceholderImg} alt={recipe.name}/>
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{recipe.name}</div>
           <p className="text-grey-darker text-base">
