@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form'
 import {useDropzone} from 'react-dropzone'
 import ImageUploadIcon from "../icons/ImageUploadIcon";
 import PropTypes from 'prop-types';
+import Loader from "../common/Loader";
 
 export default function RecipeForm(
   {
@@ -10,6 +11,7 @@ export default function RecipeForm(
     content = '',
     image = null,
     isSaving = false,
+    isUploadingImage = false,
     onRemoveImage,
     onImageUpload,
     onSave
@@ -40,8 +42,8 @@ export default function RecipeForm(
 
   const _renderImage = () => {
     return (
-      <div className="blogs bg-white mr-5">
-        <img src={image.url} alt="recipe cover" className="w-full max-w-screen-sm"/>
+      <div className="blogs bg-white mr-5 flex items-center flex-col">
+        <img src={image.url} alt="recipe cover" className="w-full max-w-screen-sm rounded-sm"/>
         <button onClick={() => onRemoveImage()}
                 className="py-1 px-1 mt-4 px-6 text-white bg-red-600 inline-block rounded">
           Remove Cover
@@ -58,7 +60,7 @@ export default function RecipeForm(
         </label>
         <div
           className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md" {...getRootProps()}>
-          <div className="space-y-1 text-center">
+          <div className={`space-y-1 text-center relative ${isUploadingImage ? 'opacity-50' : ''}`}>
             <ImageUploadIcon/>
             <div className="flex text-sm text-gray-600">
               <label
@@ -68,12 +70,13 @@ export default function RecipeForm(
               <input name="file-upload"
                      accept="image/*"
                      className="sr-only"
-                     {...getInputProps()}/>
+                     {...getInputProps()} disabled={isUploadingImage}/>
               <p className="pl-1">or drag and drop</p>
             </div>
             <p className="text-xs text-gray-500">
               PNG, JPG, GIF up to 3MB
             </p>
+            { isUploadingImage && <Loader/> }
           </div>
         </div>
       </div>
@@ -81,7 +84,7 @@ export default function RecipeForm(
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-screen-sm m-auto">
       <div className="py-5 bg-white">
         {(image && image.url) ? _renderImage() : _renderUploadForm() }
         <div className="grid grid-cols-x3 gap-6 mt-4">
@@ -132,6 +135,7 @@ RecipeForm.propTypes = {
     id: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
   }),
+  isUploadingImage: PropTypes.bool,
   isSaving: PropTypes.bool.isRequired,
   onImageUpload: PropTypes.func.isRequired,
   onRemoveImage: PropTypes.func.isRequired,
