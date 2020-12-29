@@ -17,7 +17,7 @@ const File = sequelize.define(
       allowNull: false,
     },
     userId: {
-      type: Sequelize.DataTypes.UUID,
+      type: Sequelize.DataTypes.BIGINT,
       allowNull: false,
     },
     url: {

@@ -12,8 +12,8 @@ module.exports = {
         {
           id: {
             primaryKey: true,
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
+            type: Sequelize.DataTypes.BIGINT,
+            autoIncrement: true,
           },
           email: {
             type: Sequelize.DataTypes.STRING,
@@ -58,8 +58,8 @@ module.exports = {
         {
           id: {
             primaryKey: true,
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
+            type: Sequelize.DataTypes.BIGINT,
+            autoIncrement: true,
           },
           token: {
             type: Sequelize.DataTypes.STRING,
@@ -70,7 +70,7 @@ module.exports = {
             allowNull: false,
           },
           userId: {
-            type: Sequelize.DataTypes.UUID,
+            type: Sequelize.DataTypes.BIGINT,
             allowNull: false,
           },
           createdAt: {
@@ -121,7 +121,7 @@ module.exports = {
             allowNull: false,
           },
           userId: {
-            type: Sequelize.DataTypes.UUID,
+            type: Sequelize.DataTypes.BIGINT,
             allowNull: false,
           },
           createdAt: {
@@ -156,8 +156,8 @@ module.exports = {
         {
           id: {
             primaryKey: true,
-            type: Sequelize.DataTypes.UUID,
-            defaultValue: Sequelize.DataTypes.UUIDV4,
+            type: Sequelize.DataTypes.BIGINT,
+            autoIncrement: true,
           },
           name: {
             type: Sequelize.DataTypes.STRING,
@@ -178,7 +178,7 @@ module.exports = {
             defaultValue: 1
           },
           userId: {
-            type: Sequelize.DataTypes.UUID,
+            type: Sequelize.DataTypes.BIGINT,
             allowNull: false,
           },
           coverId: {

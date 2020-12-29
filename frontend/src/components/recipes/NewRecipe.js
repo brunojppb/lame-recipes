@@ -70,6 +70,7 @@ export default function NewRecipe() {
                   onImageUpload={onImageUpload}
                   image={image}
                   onRemoveImage={onRemoveImage}
+                  isUploadingImage={isUploading}
                   onSave={onSaveRecipe}/>
     </>
   )
