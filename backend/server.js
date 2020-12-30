@@ -1,15 +1,11 @@
 const http = require('http');
 const { createTerminus } = require('@godaddy/terminus');
 const { app } = require('./app.js');
-const { apolloServer } = require('./graphql/apolloServer.js');
 const config = require('./config')
 const {
   setupDatabaseConn,
   teardownDatabaseConn,
 } = require('./models');
-
-// Setup Apollo GraphQL endpoint
-apolloServer.applyMiddleware({ app });
 
 // cleanup resources on shutdown, like databases or file descriptors
 async function teardown() {

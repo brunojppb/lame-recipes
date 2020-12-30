@@ -1,11 +1,10 @@
-const { resolve, join } = require('path');
+const { join } = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
 
-const projectRootPath = resolve(__dirname);
-const rootPath = projectRootPath;
+const { apolloServer } = require('./graphql/apolloServer')
 
 // Create Express server
 const app = express();
@@ -37,7 +36,7 @@ app.use(express.static(join(__dirname, '../frontend/build')));
 
 // Any route once the app mounts the React app
 // react-router takes care of the rest
-['/app', '/app/*'].forEach((route) => {
+['/app', '/app/', '/app/*'].forEach((route) => {
   app.use(
     route,
     express.static(join(__dirname, '../frontend/build/index.html'))
@@ -46,7 +45,15 @@ app.use(express.static(join(__dirname, '../frontend/build')));
 
 app.use('/uploads', express.static('uploads'))
 
+// Setup Apollo GraphQL endpoint
+apolloServer.applyMiddleware({ app });
+
+// Route not found
+const errorPage = join(__dirname, "./public/404.html");
+app.use('*', function(req, res) {
+  res.status(404).sendFile(errorPage)
+});
+
 module.exports = {
   app,
-  rootPath,
 };
