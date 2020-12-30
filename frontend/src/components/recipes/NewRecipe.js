@@ -7,6 +7,7 @@ import Routes from "../../routes";
 import {NEW_RECIPE_MUTATION} from "../../graphql/mutations";
 import {QUERY_MY_RECIPES} from "../../graphql/queries";
 import {UPLOAD_IMAGE_MUTATION} from "../../graphql/mutations";
+import {useNotification} from "../common/NotificationProvider";
 
 export default function NewRecipe() {
 
@@ -14,6 +15,7 @@ export default function NewRecipe() {
   const [uploadImage, {loading: isUploading}] = useMutation(UPLOAD_IMAGE_MUTATION)
   const [image, setImage] = useState(null)
   const history = useHistory()
+  const {showError, showSuccess} = useNotification()
 
   const onImageUpload = useCallback(async (file) => {
     try {
@@ -57,6 +59,8 @@ export default function NewRecipe() {
       })
       history.push(Routes.recipes)
     } catch (e) {
+      showError('Could not save recipe. Please fill in the form.')
+      // TODO: Highlight and show errors on form fields
       console.error("Could not save recipe: ", e)
     }
   }

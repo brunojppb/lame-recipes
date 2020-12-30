@@ -21,6 +21,13 @@ const apolloServer = new ApolloServer({
     }
     return context;
   },
+  formatError: (err) => {
+    if (!err.message) {
+      err.message = 'oops. Something went wrong. Try again later.';
+      console.error("Error without message patched: ", err);
+    }
+    return err;
+  }
 });
 
 module.exports = {

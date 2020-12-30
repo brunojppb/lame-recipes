@@ -8,12 +8,14 @@ import Routes from "../../routes";
 import LockIcon from "../icons/LockIcon";
 import {useAuth} from "../auth/AuthProvider";
 import {LOGIN_MUTATION} from "../../graphql/mutations";
+import {useNotification} from "../common/NotificationProvider";
 
 export default function LoginPage() {
   const history = useHistory()
   const {register, handleSubmit} = useForm()
   const {setUser} = useAuth()
   const [signIn, {loading}] = useMutation(LOGIN_MUTATION)
+  const {showError} = useNotification()
 
   const onSubmit = async (data) => {
     const {email, password} = data;
@@ -32,7 +34,8 @@ export default function LoginPage() {
         history.replace(Routes.recipes)
       }
     } catch (e) {
-      console.log('could not login', e)
+      const message = e.message || 'Could not login'
+      showError(message)
     }
   }
 

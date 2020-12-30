@@ -5,6 +5,7 @@ import CenterLayout from "../common/CenterLayout";
 import {useForm} from "react-hook-form";
 import {useMutation} from "@apollo/client";
 import {SIGNUP_MUTATION} from "../../graphql/mutations";
+import {useNotification} from "../common/NotificationProvider";
 
 
 export default function SignupPage() {
@@ -12,6 +13,7 @@ export default function SignupPage() {
   const {register, handleSubmit} = useForm();
   const history = useHistory()
   const [signUp, {loading}] = useMutation(SIGNUP_MUTATION)
+  const {showSuccess, showError} = useNotification()
 
   const onSubmit = async (data) => {
     const {name, email, password, passwordConfirmation} = data;
@@ -26,10 +28,11 @@ export default function SignupPage() {
           }
         }
       })
-      // TODO: Notify about account creation
+      showSuccess('Welcome to Lame Recipes 🎉. Now please Sign in.')
       history.replace(Routes.login)
     } catch (e) {
-      console.log('could not signup', e)
+      const message = e.message || 'Opps, something went wrong.'
+      showError(message)
     }
   }
 
