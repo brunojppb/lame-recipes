@@ -43,7 +43,7 @@ jobs:
       - name: deploy docker image
         run: |
           ssh root@$SERVER_IP "mkdir -p lame_recipes"
-          scp -r ./docker-compose.yml root@$SERVER_IP:~/lame_recipes/docker-compose.yml
+          scp -r ./docker-compose.prod.yml root@$SERVER_IP:~/lame_recipes/docker-compose.yml
           ssh root@$SERVER_IP << ENDSSH
             cd lame_recipes
             # This is running in a very cheap VPS on Hetzner

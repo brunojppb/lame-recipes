@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+
+  lame_recipes:
+    container_name: lame_recipes
+    image: brunojppb/lame_recipes
+    networks:
+      - proxy_default
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - IS_HTTPS_ACTIVE=true
+      - ENABLE_DB_LOGGING=false
+      # Use this to automatically generate SSL Certificates and proxy it via nginx-proxy container
+      # See https://github.com/jwilder/nginx-proxy
+      # See also https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion
+      - VIRTUAL_HOST=lamerecipes.com
+      - LETSENCRYPT_HOST=lamerecipes.com
+    volumes:
+      - ./uploads:/app/backend/uploads
+      - ./db:/app/backend/db
+    ports:
+      - "5000:5000"
+    restart: always
+
+# This is the network created by the nginx container proxy using compose on my private VPS
+# we could have a custom network created there as well, but I am using the default one :)
+# This is also very specific for my current production setup.
+networks:
+  proxy_default:
+    external: true

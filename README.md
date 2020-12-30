@@ -19,7 +19,9 @@ npx sequelize-cli migration:generate --name migration-name-here
 
 ## To start things up
 
+### Node backend
 ```shell
+cd backend
 # Install all dependencies
 npm install
 # run any pending migrations
@@ -28,9 +30,27 @@ npm run migratedb
 npm run dev
 ```
 
+### React frontend
+```shell
+cd frontend
+# Install all dependencies
+yarn install
+# Execute dev server
+yarn start
+```
+
+## Running with Docker
+
+If you just want to spin-up the application locally, make sure you have docker installed and run the following command:
+
+```shell
+docker-compose up
+```
+
 ## Milestones
 
-I have a simple goal for this project. A webapp where my wife and I can upload our own recipes with pictures and a easy way to access them. But we want to make it a way where we can upload our own pictures and also sort them based on the number of ingredients involved.
+I have a simple goal for this project. A webapp where my wife and I can upload our own recipes with pictures with an easy way to access them.
+We want to make it in a way where we can upload our own pictures and also sort them based on the number of ingredients involved.
 
 ### Milestone 1
 
