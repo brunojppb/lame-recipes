@@ -1,10 +1,10 @@
 const { ApolloServer } = require('apollo-server-express');
 
-const typeDefs = require('./graphql/types');
-const resolvers = require('./graphql/resolvers');
+const typeDefs = require('./types');
+const resolvers = require('./resolvers');
 
-const { IsAuthenticatedDirective } = require('./graphql/directives/IsAuthenticatedDirective')
-const { getUserFromSession, AUTH_HEADER } = require('./auth');
+const { IsAuthenticatedDirective } = require('./directives/IsAuthenticatedDirective')
+const { getUserFromSession, AUTH_HEADER } = require('../auth');
 
 const apolloServer = new ApolloServer({
   typeDefs,

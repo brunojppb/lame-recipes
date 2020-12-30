@@ -1,7 +1,7 @@
 const http = require('http');
 const { createTerminus } = require('@godaddy/terminus');
 const { app } = require('./app.js');
-const { apolloServer } = require('./apolloServer.js');
+const { apolloServer } = require('./graphql/apolloServer.js');
 const config = require('./config')
 const {
   setupDatabaseConn,
