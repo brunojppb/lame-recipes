@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect } from 'react';
+import {useState, useCallback, useEffect} from 'react';
 import {useMutation} from "@apollo/client";
 import {useLocation} from 'react-router-dom';
 
-import SideMenuItem from "./SideMenuItem";
+import NavbarItem from "./NavbarItem";
 import UserIcon from "../../icons/UserIcon";
 import PlusIcon from "../../icons/PlusIcon";
 import HeartIcon from "../../icons/HeartIcon";
@@ -10,7 +10,6 @@ import Routes from "../../../routes";
 import ExitArrow from "../../icons/ExitArrow";
 import {useAuth} from "../../auth/AuthProvider";
 import {useNotification} from "../NotificationProvider";
-import MenuIcon from "../../icons/MenuIcon";
 import {LOGOUT_MUTATION} from "../../../graphql/mutations";
 import useMedia from "../../../hooks/useMedia";
 
@@ -32,7 +31,7 @@ const menus = [
   }
 ];
 
-export default function SideMenu() {
+export default function Navbar() {
 
   const [signOut] = useMutation(LOGOUT_MUTATION)
   const {onSignOut} = useAuth()
@@ -66,32 +65,26 @@ export default function SideMenu() {
   };
 
   return (
-    <>
-      <aside className={`side-menu full-screen-height bg-gray block relative ${desktopMenuClass} ${mobileMenuExpandedClass}`} >
-        <div className="flex flex-col justify-between full-screen-height p-4 bg-gray-800">
-          <div className="text-sm">
-            <div className="bg-gray-900 text-white p-5 rounded cursor-pointer font-bold">Lame Recipes</div>
-            {menus.map(({IconComponent, label, to}) => (
-              <SideMenuItem to={to} key={to}>
-                <IconComponent className="text-white w-4 h-4"/>
-                <div className="flex justify-between items-center w-full">
-                  <span>{label}</span>
-                </div>
-              </SideMenuItem>
-            ))}
-          </div>
-
-          <button className="rounded inline-flex items-center flex p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm" onClick={onLogout}>
+    <header className="fixed top-0 left-0 right-0 p-2 bg-gray-800">
+      <div className="flex flex-row justify-between items-center text-sm">
+        <span className="text-white font-bold">Lame Recipes</span>
+        <div className="flex flex-row justify-items-center gap-2">
+          {menus.map(({IconComponent, label, to}) => (
+            <NavbarItem to={to} key={to}>
+              <IconComponent className="text-white w-4 h-4"/>
+              <div className="flex justify-between items-center w-full">
+                <span>{label}</span>
+              </div>
+            </NavbarItem>
+          ))}
+          <button
+            className="rounded inline-flex items-center flex p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm"
+            onClick={onLogout}>
             <ExitArrow className="w-4 h-4 mr-2"/>
             <span className="font-semibold">Logout</span>
           </button>
         </div>
-        <button className={`rounded-lg absolute side-menu-btn bg-gray-800 text-white p-2 pl-4 pr-2 ${menuButtonHiddenClass}`} onClick={toggleMenu}>
-          <MenuIcon className="text-white w-4 h-4"/>
-          <span className="sr-only">toggle menu</span>
-        </button>
-      </aside>
-      <div className="menu-overlay" style={{display: (!isDesktop && isMobileMenuExpanded) ? 'block' : 'none'}} onClick={toggleMenu}/>
-    </>
+      </div>
+    </header>
   );
 }
