@@ -4,14 +4,16 @@
 
 /*
  * Fix mobile issue on webkit
- * See: https://css-tricks.com/css-fix-for-100vh-in-mobile-webkit/
+ * See: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+ *
+ * --view-port is defined globally via index.html
  */
-body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+.full-screen-height {
+    height: calc(var(--view-height, 1vh) * 100);
 }
-html {
-    height: -webkit-fill-available;
+
+.min-full-screen-height {
+    min-height: calc(var(--view-height, 1vh) * 100);
 }
 
 @keyframes spinner {

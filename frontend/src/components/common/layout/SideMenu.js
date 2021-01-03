@@ -67,8 +67,8 @@ export default function SideMenu() {
 
   return (
     <>
-      <aside className={`side-menu h-screen bg-gray block relative ${desktopMenuClass} ${mobileMenuExpandedClass}`} >
-        <div className="flex flex-col justify-between h-screen p-4 bg-gray-800">
+      <aside className={`side-menu full-screen-height bg-gray block relative ${desktopMenuClass} ${mobileMenuExpandedClass}`} >
+        <div className="flex flex-col justify-between full-screen-height p-4 bg-gray-800">
           <div className="text-sm">
             <div className="bg-gray-900 text-white p-5 rounded cursor-pointer font-bold">Lame Recipes</div>
             {menus.map(({IconComponent, label, to}) => (
