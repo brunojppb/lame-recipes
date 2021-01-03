@@ -24,6 +24,9 @@ export default function AppContainer() {
           <Route path={Routes.recipe} exact={true}>
             <RecipePage/>
           </Route>
+          <Route path={Routes.settings} exact={true}>
+            <h1>TODO: Settings page</h1>
+          </Route>
         </Switch>
       </AppLayout>
     </main>
