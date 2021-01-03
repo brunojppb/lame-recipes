@@ -1,16 +1,14 @@
 import React from 'react';
-import SideMenu from "./SideMenu";
+import Navbar from "./Navbar";
 
 export default function AppLayout({children}) {
 
   return (
     <>
-      <div className="flex w-full full-screen-height">
-        <SideMenu/>
+      <Navbar/>
+      <div className="flex w-full full-screen-height pt-16">
         <section className="w-full p-4 overflow-y-auto">
-          <div className="w-full border-dashed p-4 text-md">
-            {children}
-          </div>
+          {children}
         </section>
 
       </div>
