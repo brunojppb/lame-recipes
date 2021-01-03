@@ -40,10 +40,6 @@ export default function Navbar() {
   const [isMobileMenuExpanded, setIsMobileMenuExpanded] = useState(false);
   const location = useLocation()
 
-  const desktopMenuClass = isDesktop ? 'side-menu--desktop' : '';
-  const menuButtonHiddenClass = isDesktop ? 'menu-btn-hidden' : '';
-  const mobileMenuExpandedClass = (!isDesktop && isMobileMenuExpanded) ? 'side-menu--mobile-shown' : '';
-
   const toggleMenu = useCallback(() => {
     setIsMobileMenuExpanded(v => !v)
   }, [])
@@ -65,20 +61,20 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 p-2 bg-gray-800">
+    <header className="fixed left-0 right-0 p-2 bg-gray-800 sm:top-0 mobile-menu">
       <div className="flex flex-row justify-between items-center text-sm">
-        <span className="text-white font-bold">Lame Recipes</span>
-        <div className="flex flex-row justify-items-center gap-2">
+        <span className="text-white font-bold hidden sm:block">Lame Recipes</span>
+        <div className="flex flex-row justify-items-center gap-2 w-full sm:w-auto">
           {menus.map(({IconComponent, label, to}) => (
             <NavbarItem to={to} key={to}>
               <IconComponent className="text-white w-4 h-4"/>
-              <div className="flex justify-between items-center w-full">
+              <div className="w-full text-center text-xs sm:text-sm">
                 <span>{label}</span>
               </div>
             </NavbarItem>
           ))}
           <button
-            className="rounded inline-flex items-center flex p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm"
+            className="rounded items-center p-3 text-white bg-red-700 hover:bg-opacity-70 rounded cursor-pointer text-center text-sm hidden sm:flex sm:flex-row"
             onClick={onLogout}>
             <ExitArrow className="w-4 h-4 mr-2"/>
             <span className="font-semibold">Logout</span>

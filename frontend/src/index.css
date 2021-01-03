@@ -165,45 +165,12 @@
     background-color: #ffbaba;
 }
 
-.side-menu {
-    width: 250px;
-    min-width: 250px;
-    z-index: 5;
-    transform: translateX(0);
-    transition: transform 300ms;
-    position: fixed;
-    left: -250px;
-    bottom: 0;
-    top: 0;
+.mobile-menu {
+    z-index: 99;
 }
 
-.side-menu ~ .menu-overlay {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    background-color: rgba(1,1,1,.5);
-}
-
-.side-menu.side-menu--mobile-shown {
-    transform: translateX(250px);
-}
-
-.side-menu.side-menu--desktop {
-    transform: translateX(0);
-    position: relative;
-    left: unset;
-    bottom: unset;
-    top: unset;
-}
-.side-menu-btn {
-    right: -30px;
-    bottom: 8px;
-}
-
-.side-menu-btn.menu-btn-hidden {
-    display: none;
+@media screen and (max-width: 640px) {
+    .mobile-menu {
+        bottom: 0;
+    }
 }
