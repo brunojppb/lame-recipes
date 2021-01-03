@@ -18,6 +18,12 @@ export const LOGIN_MUTATION = gql`
     }
 `;
 
+export const LOGOUT_MUTATION = gql`
+    mutation signOut {
+        signOut
+    }
+`;
+
 export const NEW_RECIPE_MUTATION = gql`
     mutation createRecipe($input: RecipeInput!) {
         newRecipe: createRecipe(input: $input) {

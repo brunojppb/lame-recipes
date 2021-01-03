@@ -30,7 +30,7 @@ export default function RecipeForm(
     }
   }, [onImageUpload])
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const {getRootProps, getInputProps} = useDropzone({
     onDrop,
     accept: '.jpg,.png',
   });
@@ -74,7 +74,7 @@ export default function RecipeForm(
               <p className="pl-1">or drag and drop</p>
             </div>
             <p className="text-xs text-gray-500">
-              PNG, JPG, GIF up to 3MB
+              PNG, JPG, GIF up to 5MB
             </p>
             { isUploadingImage && <Loader/> }
           </div>

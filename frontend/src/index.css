@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Fix mobile issue on webkit
+ * See: https://css-tricks.com/css-fix-for-100vh-in-mobile-webkit/
+ */
+body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+html {
+    height: -webkit-fill-available;
+}
+
 @keyframes spinner {
     to {transform: rotate(360deg);}
 }
@@ -119,6 +131,12 @@
     width: 320px;
 }
 
+@media screen and (max-width: 640px) {
+    .notification-sheet {
+        width: 270px;
+    }
+}
+
 .notification-sheet .notification-sheet-item {
     position: relative;
     width: 100%;
@@ -143,4 +161,47 @@
 
 .notification-sheet .notification-sheet-item.is-error .progress {
     background-color: #ffbaba;
+}
+
+.side-menu {
+    width: 250px;
+    min-width: 250px;
+    z-index: 5;
+    transform: translateX(0);
+    transition: transform 300ms;
+    position: fixed;
+    left: -250px;
+    bottom: 0;
+    top: 0;
+}
+
+.side-menu ~ .menu-overlay {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: rgba(1,1,1,.5);
+}
+
+.side-menu.side-menu--mobile-shown {
+    transform: translateX(250px);
+}
+
+.side-menu.side-menu--desktop {
+    transform: translateX(0);
+    position: relative;
+    left: unset;
+    bottom: unset;
+    top: unset;
+}
+.side-menu-btn {
+    right: -30px;
+    bottom: 8px;
+}
+
+.side-menu-btn.menu-btn-hidden {
+    display: none;
 }

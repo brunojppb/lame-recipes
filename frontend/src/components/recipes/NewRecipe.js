@@ -57,6 +57,9 @@ export default function NewRecipe() {
           })
         },
       })
+      const emojis = ['🌯', '🍖', '🍔', '🍢', '🍱']
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)]
+      showSuccess(`New recipe created! ${emoji}`)
       history.push(Routes.recipes)
     } catch (e) {
       showError('Could not save recipe. Please fill in the form.')
