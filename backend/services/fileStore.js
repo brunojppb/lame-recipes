@@ -38,15 +38,16 @@ async function storeImage(readStream, mimetype) {
           fit: 'inside',
           withoutEnlargement: true
         })
+        .withMetadata() // preserve picture metadata.
         .jpeg({
           quality: 70,
           chromaSubsampling: '4:4:4',
-          force: true, // <----- add this parameter
+          force: true,
         })
       return readStream
         .pipe(transformer)
         .pipe(writeStream)
-        .on('finish', () => resolve({id: fileId, fileExtension}))
+        .on('finish', () => resolve({id: fileId, fileExtension})) // TODO: Remove file ID dependency and pass in
         .on('error', reject)
     });
   } catch(e) {
