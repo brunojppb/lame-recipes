@@ -2,20 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
- * Fix mobile issue on webkit
- * See: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
- *
- * --view-port is defined globally via index.html
- */
-.full-screen-height {
-    height: calc(var(--view-height, 1vh) * 100);
-}
-
-.min-full-screen-height {
-    min-height: calc(var(--view-height, 1vh) * 100);
-}
-
+/** Boring spinner for loading state */
 @keyframes spinner {
     to {transform: rotate(360deg);}
 }

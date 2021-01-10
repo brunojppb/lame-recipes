@@ -68,31 +68,6 @@
         animation: loader .6s linear infinite;
       }
     </style>
-    <script>
-      // Solution for screen height using viewport units
-      // See: https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-      function __debounce(func, wait, immediate) {
-        let timeout;
-        return function() {
-          const context = this, args = arguments;
-          const later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-          };
-          const callNow = immediate && !timeout;
-          clearTimeout(timeout);
-          timeout = setTimeout(later, wait);
-          if (callNow) func.apply(context, args);
-        };
-      };
-
-      // The --view-height css variable will be consumed within the CSS file
-      const resizeFn = __debounce(function() {
-        const viewHeight = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--view-height', `${viewHeight}px`);
-      }, 500, true)
-      window.addEventListener('resize', resizeFn)
-    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
