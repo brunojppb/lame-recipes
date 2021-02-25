@@ -22,6 +22,11 @@ const Recipe = sequelize.define(
       allowNull: false,
       default: ''
     },
+    html: {
+      type: Sequelize.DataTypes.TEXT,
+      allowNull: false,
+      default: ''
+    },
     /** The number of people this recipe can serve */
     serving: {
       type: Sequelize.DataTypes.INTEGER,

@@ -11,8 +11,8 @@ async function findRecipe(id, userId) {
   });
 }
 
-async function createRecipe(name, content, coverId, userId) {
-  return Recipe.create({ name, content, coverId, userId });
+async function createRecipe(name, content, html, coverId, userId) {
+  return Recipe.create({ name, content, html, coverId, userId });
 }
 
 async function getUserRecipes(userId) {

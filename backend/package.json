@@ -12,7 +12,7 @@
   "author": "Bruno Paulino",
   "license": "MIT",
   "engines": {
-    "node": "12.20.0"
+    "node": "12.20.1"
   },
   "dependencies": {
     "@godaddy/terminus": "^4.4.1",
@@ -25,11 +25,14 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "dompurify": "^2.2.6",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.3",
     "graphql": "^15.4.0",
     "http": "0.0.1-security",
+    "jsdom": "^16.4.0",
+    "marked": "^2.0.0",
     "ncp": "^2.0.0",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",

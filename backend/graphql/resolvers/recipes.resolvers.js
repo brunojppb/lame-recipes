@@ -1,5 +1,8 @@
-const { UserInputError } = require('apollo-server');
-const { RecipesRepo } = require('../../repository/recipes.js');
+const { UserInputError } = require('apollo-server')
+const { RecipesRepo } = require('../../repository/recipes.js')
+const marked = require('marked')
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
 
 /** Queries */
 async function getRecipe(root, { id }, {user}) {
@@ -20,7 +23,15 @@ async function createRecipe(root, args, {user}) {
       }
     })
   }
-  return RecipesRepo.createRecipe(name, content, coverId, user.id);
+  const html = marked(content)
+  const window = new JSDOM('').window;
+  const DOMPurify = createDOMPurify(window);
+  const sanitizedHtml = DOMPurify.sanitize(html, {
+    USE_PROFILES: {
+      html: true
+    } 
+  });
+  return RecipesRepo.createRecipe(name, content, sanitizedHtml, coverId, user.id);
 }
 
 const resolvers = {

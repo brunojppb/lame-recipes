@@ -48,7 +48,7 @@ export default function Navbar() {
     if (isMobileMenuExpanded && !isDesktop) {
       toggleMenu()
     }
-  }, [location])
+  }, [location, isMobileMenuExpanded, isDesktop, toggleMenu])
 
   const onLogout = async () => {
     try {

@@ -5,6 +5,7 @@ const Recipe = gql`
       id: ID!
       name: String!
       content: String!
+      html: String!
       cover: File
   }
 

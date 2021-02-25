@@ -167,6 +167,10 @@ module.exports = {
             type: Sequelize.DataTypes.TEXT,
             allowNull: false,
           },
+          html: {
+            type: Sequelize.DataTypes.TEXT,
+            allowNull: false,
+          },
           serving: {
             type: Sequelize.DataTypes.INTEGER,
             allowNull: false,

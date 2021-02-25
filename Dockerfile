@@ -1,4 +1,4 @@
-FROM node:12.20.0-alpine as build
+FROM node:12.20.1-alpine as build
 LABEL maintainer="dev@bpaulino.com"
 
 RUN mkdir -p /app
@@ -24,7 +24,7 @@ RUN cd /app/frontend \
 
 # Using the build pattern to skip any temp files
 # stored on the build image
-FROM node:12.20.0-alpine
+FROM node:12.20.1-alpine
 
 WORKDIR /app
 COPY --from=build /app /app

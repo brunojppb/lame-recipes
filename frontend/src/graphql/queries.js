@@ -29,6 +29,7 @@ export const GET_RECIPE = gql`
             id
             name
             content
+            html
             cover {
                 url
             }
